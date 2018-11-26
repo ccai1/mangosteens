@@ -26,9 +26,16 @@ Pushed to repo
 ==============================================================
 cathyC -- 2018-11-21 12:21
 --------------------------------------------------------------
-Revisions to Design Doc:
+Planned Revisions to Design Doc:
 -Specify our APIs: Spotify, MapQuest, and MTA
 -Add a new page to browse/choose songs to add to playlist
 -Add ability to select a few songs to keep before shuffling
 -Add authorization features
+==============================================================
+cathyC -- 2018-11-25 11:12 
+--------------------------------------------------------------
+Revised Design Doc:
+-Specified APIs
+-Took out option to choose songs to add to playlist
+-Added an "S" button to keep the song before shuffling playlist
 ==============================================================
