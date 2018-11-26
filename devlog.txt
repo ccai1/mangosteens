@@ -39,3 +39,9 @@ Revised Design Doc:
 -Took out option to choose songs to add to playlist
 -Added an "S" button to keep the song before shuffling playlist
 ==============================================================
+stefanT -- 2018-11-26 12:25 
+--------------------------------------------------------------
+Revised Design Doc:
+-Added login component
+-Included login page in the site map
+==============================================================
