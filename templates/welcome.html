@@ -1,0 +1,13 @@
+<!DOCTYPE = html>
+<html>
+	{%block title%}<title>Welcome</title>{%endblock title%}
+	{%set msgs = get_flashed_messages()%}
+		{%for each in msgs %}
+		<h1>{{each}}</h1>
+		<br>
+	{%endfor%}
+
+	{%block login%}
+		<br><br><br><a href = '/logout'><input type = "button" value="logout"></input></a>
+	{%endblock login%}
+</html>
