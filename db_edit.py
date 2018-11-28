@@ -10,15 +10,24 @@ c = db.cursor()               #facilitate db ops
 def insert(tableName, info):
     '''inserts data into certain table, taking info as a list of parameters'''
     # collect Column Data Names in strings
+    # c.execute('PRAGMA TABLE_INFO({})'.format(tableName))
     c.execute('PRAGMA TABLE_INFO({})'.format(tableName))
     colNames = ''
     i = 0
-    for cols in c.fetchall():
-        if i == 0:
-            i += 1 # primary key will update itself
+    tbl = c.fetchall()
+    for cols in tbl:
+        if tableName == 'users':
+            if i != len(tbl) - 1:
+                colNames += "'" + cols[1] + "'"+ ','
+                i += 1
         else:
-            colNames += "'" + cols[1] + "'"+ ','
+            if i == 0:
+                i += 1 # primary key will update itself
+            else:
+                colNames += "'" + cols[1] + "'"+ ','
     colNames = colNames[:-1]
+    print ('column names')
+    print (colNames)
     values = ''
     for val in info:
         values += "'" + str(val) + "'" + ","

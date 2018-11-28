@@ -47,7 +47,8 @@ def register():
     pwdCopy = request.form['re_pwd'].strip()
     if username.find("'") == -1:
             if password == pwdCopy:
-                db_edit.insert('users', [username, sha256_crypt.encrypt(password), ''])
+                # db_edit.insert('users', [username, sha256_crypt.encrypt(password), ""])
+                db_edit.insert('users', ["hi", "hi", ""])
                 '''insert username and password into database'''
                 flash("registration complete, please re-enter your login info");
             else:
