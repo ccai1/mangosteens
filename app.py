@@ -29,8 +29,10 @@ def login():
     user_exists = db_edit.findInfo('users', db_edit.checkApos(username), 'username', fetchOne = True)
     '''find password for username'''
     if user_exists:
-        print (sha256_crypt.verify(password, user_exists[3]))
-        if sha256_crypt.verify(password, user_exists[3]):
+        print (user_exists)
+        print (password)
+        print (sha256_crypt.verify(password, user_exists[2]))
+        if sha256_crypt.verify(password, user_exists[2]):
             session['user'] = username
             return redirect(url_for('home'))
         else:
@@ -48,7 +50,7 @@ def register():
     if username.find("'") == -1:
             if password == pwdCopy:
                 # db_edit.insert('users', [username, sha256_crypt.encrypt(password), ""])
-                db_edit.insert('users', ["hi", "hi", ""])
+                db_edit.insert('users', [username, '', sha256_crypt.encrypt(password)])
                 '''insert username and password into database'''
                 flash("registration complete, please re-enter your login info");
             else:

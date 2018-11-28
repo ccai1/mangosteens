@@ -22,7 +22,7 @@ def closeDB():
 	db.commit() #save changes
 	db.close()  #close database
 
-usersParam = {"UserID":"INTEGER PRIMARY KEY","Username":"TEXT","Password":"TEXT","Playlists":"TEXT"}
+usersParam = {"UserID":"INTEGER PRIMARY KEY","Username":"TEXT UNIQUE","Password":"TEXT","Playlists":"TEXT"}
 createTable("users", usersParam)
 
 songsParam = {"SongID":"INTEGER PRIMARY KEY","SongTitle":"TEXT","Artist":"TEXT","Genre":"TEXT","Mood":"TEXT","Minutes":"INTEGER","Seconds":"INTEGER"}
