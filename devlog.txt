@@ -38,6 +38,7 @@ Revised Design Doc:
 -Specified APIs
 -Took out option to choose songs to add to playlist
 -Added an "S" button to keep the song before shuffling playlist
+-Expanded roles for Stefan and Angela
 ==============================================================
 stefanT -- 2018-11-26 12:25 
 --------------------------------------------------------------
