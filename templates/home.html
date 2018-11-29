@@ -6,18 +6,17 @@
 			{%endblock title%}
 		</title>
 	<head>
-		{%block greeting%}
-			{%set msgs = get_flashed_messages()%}
-			{%for each in msgs %}
-			<h1>{{each}}</h1>
-			{%endfor%}
-		{%endblock greeting%}
-
 	</head>
 	<body>
 		{%block login %}
 		<h3>Welcome to Smapify!</h3>
 		<h3>To create a customized playlist, please login.</h3>
+		{%block greeting%}
+			{%set msgs = get_flashed_messages()%}
+			{%for each in msgs %}
+			<i>{{each}}</i><br><br>
+			{%endfor%}
+		{%endblock greeting%}
 		<form action="/login" method="POST">
 			Username: <input type = "text" name="usr" placeholder = "Username"></br>
 			Password: <input type = "password" name="pwd" placeholder = "Password"></br>

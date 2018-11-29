@@ -36,9 +36,9 @@ def login():
             session['user'] = username
             return redirect(url_for('home'))
         else:
-            flash("password wrong")
+            flash("Wrong password")
             return render_template('home.html')
-    flash("username wrong")
+    flash("Wrong username")
     return redirect(url_for('home'))
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -52,11 +52,11 @@ def register():
                 # db_edit.insert('users', [username, sha256_crypt.encrypt(password), ""])
                 db_edit.insert('users', [username, '', sha256_crypt.encrypt(password)])
                 '''insert username and password into database'''
-                flash("registration complete, please re-enter your login info");
+                flash("Registration complete! Please re-enter your login info");
             else:
-                flash('passwords do not match')
+                flash('Passwords do not match')
     else:
-        flash("pick a username without apostrophes")
+        flash("Pick a username without apostrophes")
     return redirect(url_for('home'))
 
 @app.route('/logout')
