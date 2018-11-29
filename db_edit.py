@@ -1,10 +1,8 @@
 import sqlite3   #enable control of an sqlite database
 
 DB_FILE="smapify.db"
-
 db = sqlite3.connect(DB_FILE, check_same_thread=False) #open if file exists, otherwise create
 c = db.cursor()               #facilitate db ops
-
 
 #info is a list of fieldValues in order without primary key
 def insert(tableName, info):
