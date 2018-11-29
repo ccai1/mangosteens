@@ -9,4 +9,4 @@
 	{%block login%}
 		<br><br><br><a href = '/logout'><input type = "button" value="logout"></input></a>
 	{%endblock login%}
-{% endblock %}
+

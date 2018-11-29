@@ -1,11 +1,8 @@
-<!DOCTYPE = html>
-<html>
-		<title>
+{% extends "base.html"%}
 			{%block title%}
 				Welcome to Smapify!
 			{%endblock title%}
-		</title>
-	<head>
+		
 		{%block greeting%}
 			{%set msgs = get_flashed_messages()%}
 			{%for each in msgs %}
@@ -13,12 +10,25 @@
 			{%endfor%}
 		{%endblock greeting%}
 
-	</head>
-	<body>
 		{%block login %}
 		<h3>Welcome to Smapify!</h3>
 		<h3>To create a customized playlist, please login.</h3>
+
+
 		<form action="/login" method="POST">
+  <div class="form-group">
+    <label for="usr">Username</label>
+    <input type="text" class="form-control" id="usr" placeholder="Enter username">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password</label>
+    <input type="password" class="form-control" id="pwd" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+		
+<!--		<form action="/login" method="POST">
 			Username: <input type = "text" name="usr" placeholder = "Username"></br>
 			Password: <input type = "password" name="pwd" placeholder = "Password"></br>
 			<input type="submit" value="Submit">
@@ -34,10 +44,5 @@
 				<input type="submit" value="Register">
 			</form>
 		{% endblock register %}
-	</body>
-		{%block footer%}
-	<footer>
-		<p>&copymangosteens
-	</footer>
-		{%endblock footer%}
-</html>
+
+--!>
