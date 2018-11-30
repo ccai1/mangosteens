@@ -8,7 +8,7 @@ Welcome to Smapify!
 {% for each in msgs %}
 <h1>{{each}}</h1>
 {% endfor %}
-{% endblock greeting%}
+{% endblock greeting %}
 
 {% block content %}
 {% block login %}
@@ -19,26 +19,26 @@ Welcome to Smapify!
   <form action="/login" method="POST">
     <div class="form-group">
       <label for="usr">Username</label>
-      <input type="text" class="form-control" id="usr" placeholder="Enter username">
+      <input type="text" class="form-control" id="usr" placeholder="Enter username" name="usr">
     </div>
     <div class="form-group">
       <label for="pwd">Password</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Password">
+      <input type="password" class="form-control" id="pwd" placeholder="Password" name="pwd">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-  {% endblock login %}
+{% endblock login %}
 
   <h3 class="text-center">New User? Register now!</h3>
-  {% block register%}
+  {% block register %}
   <form action="/register" method="POST">
     <div class="form-group">
       <label for="usr">Username</label>
-      <input type="text" class="form-control" id="new_usr" placeholder="Enter username">
+      <input type="text" class="form-control" id="new_usr" placeholder="Enter username" name="new_usr">
     </div>
     <div class="form-group">
       <label for="pwd">Password</label>
-      <input type="password" class="form-control" id="new_pwd" placeholder="Password">
+      <input type="password" class="form-control" id="new_pwd" placeholder="Password" name="new_pwd">
     </div>
     <div class="form-group">
       <label for="pwd">Re-enter Password</label>
@@ -48,24 +48,4 @@ Welcome to Smapify!
   </form>
   {% endblock register %}
 </div>
-{% endblock %}
-
-
-<!--		<form action="/login" method="POST">
-		Username: <input type = "text" name="usr" placeholder = "Username"></br>
-		Password: <input type = "password" name="pwd" placeholder = "Password"></br>
-		<input type="submit" value="Submit">
-</form>
-{%endblock login%} <br>
-
-<h3>New User? Register now!</h3>
-{%block register%}
-<form action="/register" method="POST">
-  Username: <input type = "text" name="new_usr" placeholder = Username></br>
-  Password: <input type = "password" name="new_pwd" placeholder = Password></br>
-  Re-enter Password: <input type = "password" name="re_pwd" placeholder = Password></br>
-  <input type="submit" value="Register">
-</form>
-{% endblock register %}
-
---!>
+{% endblock content %}

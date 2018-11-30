@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
-import sqlite3
 import os
+import sqlite3
 
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 from passlib.hash import sha256_crypt
 
 import db_edit
@@ -64,6 +64,11 @@ def logout():
     '''pops user from session, brings user back to home page'''
     session.pop('user')
     return redirect(url_for('home'))
+
+@app.route('/customize')
+def customize():
+    '''runs the song algorithm'''
+    return render_template('results.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
