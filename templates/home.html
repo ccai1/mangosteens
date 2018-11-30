@@ -2,6 +2,7 @@
 			{%block title%}
 				Welcome to Smapify!
 			{%endblock title%}
+<<<<<<< HEAD
 		
 		{%block greeting%}
 			{%set msgs = get_flashed_messages()%}
@@ -15,6 +16,21 @@
 		<h3>To create a customized playlist, please login.</h3>
 
 
+=======
+		</title>
+	<head>
+	</head>
+	<body>
+		{%block login %}
+		<h3>Welcome to Smapify!</h3>
+		<h3>To create a customized playlist, please login.</h3>
+		{%block greeting%}
+			{%set msgs = get_flashed_messages()%}
+			{%for each in msgs %}
+			<i>{{each}}</i><br><br>
+			{%endfor%}
+		{%endblock greeting%}
+>>>>>>> 3af70b43d6dbd3af9bd0794df9fb50c5c6c200a8
 		<form action="/login" method="POST">
   <div class="form-group">
     <label for="usr">Username</label>
