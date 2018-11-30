@@ -1,47 +1,71 @@
 {% extends "base.html"%}
-			{%block title%}
-				Welcome to Smapify!
-			{%endblock title%}
-		
-		{%block greeting%}
-			{%set msgs = get_flashed_messages()%}
-			{%for each in msgs %}
-			<h1>{{each}}</h1>
-			{%endfor%}
-		{%endblock greeting%}
+{% block title %}
+Welcome to Smapify!
+{% endblock title %}
 
-		{%block login %}
-		<h3>Welcome to Smapify!</h3>
-		<h3>To create a customized playlist, please login.</h3>
+{% block greeting %}
+{% set msgs = get_flashed_messages()%}
+{% for each in msgs %}
+<h1>{{each}}</h1>
+{% endfor %}
+{% endblock greeting%}
 
-		<form action="/login" method="POST">
-  <div class="form-group">
-    <label for="usr">Username</label>
-    <input type="text" class="form-control" id="usr" placeholder="Enter username">
-  </div>
-  <div class="form-group">
-    <label for="pwd">Password</label>
-    <input type="password" class="form-control" id="pwd" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-{% endblock login %}
-		
+{% block content %}
+{% block login %}
+<div class="container">
+  <h3 class="text-center">Welcome to Smapify!</h3>
+  <h3 class="text-center">To create a customized playlist, please login.</h3>
+
+  <form action="/login" method="POST">
+    <div class="form-group">
+      <label for="usr">Username</label>
+      <input type="text" class="form-control" id="usr" placeholder="Enter username">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  {% endblock login %}
+
+  <h3 class="text-center">New User? Register now!</h3>
+  {% block register%}
+  <form action="/register" method="POST">
+    <div class="form-group">
+      <label for="usr">Username</label>
+      <input type="text" class="form-control" id="new_usr" placeholder="Enter username">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password</label>
+      <input type="password" class="form-control" id="new_pwd" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Re-enter Password</label>
+      <input type="password" class="form-control" id="new_pwd" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+  {% endblock register %}
+</div>
+{% endblock %}
+
+
 <!--		<form action="/login" method="POST">
-			Username: <input type = "text" name="usr" placeholder = "Username"></br>
-			Password: <input type = "password" name="pwd" placeholder = "Password"></br>
-			<input type="submit" value="Submit">
-		</form>
-		{%endblock login%} <br>
+		Username: <input type = "text" name="usr" placeholder = "Username"></br>
+		Password: <input type = "password" name="pwd" placeholder = "Password"></br>
+		<input type="submit" value="Submit">
+</form>
+{%endblock login%} <br>
 
-		<h3>New User? Register now!</h3>
-		{%block register%}
-			<form action="/register" method="POST">
-				Username: <input type = "text" name="new_usr" placeholder = Username></br>
-				Password: <input type = "password" name="new_pwd" placeholder = Password></br>
-				Re-enter Password: <input type = "password" name="re_pwd" placeholder = Password></br>
-				<input type="submit" value="Register">
-			</form>
-		{% endblock register %}
+<h3>New User? Register now!</h3>
+{%block register%}
+<form action="/register" method="POST">
+  Username: <input type = "text" name="new_usr" placeholder = Username></br>
+  Password: <input type = "password" name="new_pwd" placeholder = Password></br>
+  Re-enter Password: <input type = "password" name="re_pwd" placeholder = Password></br>
+  <input type="submit" value="Register">
+</form>
+{% endblock register %}
 
 --!>
