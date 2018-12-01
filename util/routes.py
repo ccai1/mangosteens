@@ -1,14 +1,16 @@
 import json
 from urllib import request, parse
+
 '''
 Getting json data from mapquest api (directions api)
+route_type can be either fastest, shortest, pedestrian, or bicycle
 '''
-def getDirectionsInfo(key, start, end):
+def getDirectionsInfo(start, end, route_type):
+    KEY = "HetYdvBFjsiAKOqjuLAUOmCWrHaRvqDS"
     URL_STUB = "http://www.mapquestapi.com/directions/v2/route?"
-    KEY = key
-    starting_address = start
-    end_address = end
-    URL = URL_STUB + "key=" + KEY + "&from=" + fix_address(starting_address) + "&to=" + fix_address(end_address)
+    starting_address = fix_address(start)
+    end_address = fix_address(end)
+    URL = URL_STUB + "key=" + KEY + "&from=" + starting_address + "&to=" + end_address + "&routeType=" + route_type 
     print(URL)
     response = request.urlopen(URL) 
     response = response.read()
@@ -20,14 +22,9 @@ Fix the address to a working url
 '''
 def fix_address(address):
     #fixed = parse.quote(address)
+    fixed = address.replace("&", " ")
     fixed = address.replace(" ", "%20")
     return fixed
-
-'''
-
-'''
-def getRoutes(data):
-    return data['route']['legs'][0]['maneuvers']
 
 '''
 Returns realtime commute time
@@ -46,7 +43,7 @@ Returns a list of map urls
 '''
 def get_maps(data):
     amt = len(data['route']['legs'][0]['maneuvers'])
-    print(amt)
+    #print(amt)
     maps = []
     #print (data['route']['legs'][0]['maneuvers'][1]['mapUrl'])
     #print (data['route']['legs'][0]['maneuvers'][6]['mapUrl'])
@@ -55,7 +52,18 @@ def get_maps(data):
         #print(map)
         maps.append(map)
     return maps
-    
-print(get_maps(getDirectionsInfo("HetYdvBFjsiAKOqjuLAUOmCWrHaRvqDS","Clarendon Blvd,Arlington,VA","2400+S+Glebe+Rd,+Arlington,+VA")))
+
+'''
+Returns a list of directions
+'''
+def get_directions(data):
+    amt = len(data['route']['legs'][0]['maneuvers'])
+    directions = []
+    for x in range(amt):
+        direction = data['route']['legs'][0]['maneuvers'][x]['narrative']
+        directions.append(direction)
+    return directions
+
+print(get_directions(getDirectionsInfo("345 Chambers St, New York, NY 10282","270 Greenwich St, New York","pedestrian")))
 
 

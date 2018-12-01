@@ -79,3 +79,8 @@ cathyC -- 2018-12-01 11:32
 -Added routing, playlist, and edit playlist pages
 -Finished routing
 ==============================================================
+angelaT -- 2018-12-01 2:59
+--------------------------------------------------------------
+-Finished routing with MapQuest api 
+-Fixed HTTP error 400 - Bad request
+==============================================================
