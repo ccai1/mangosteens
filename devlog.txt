@@ -64,6 +64,11 @@ angelaT -- 2018-11-29 4:34
 -Finished getting a list of map urls and time
 -Started on getting list of directions
 ==============================================================
+stefanT -- 2018-11-30 12:29
+--------------------------------------------------------------
+-Updated template.html
+-Worked on home.html and welcome.html
+==============================================================
 cathyC -- 2018-11-30 12:31
 --------------------------------------------------------------
 -Fixed login bugs
