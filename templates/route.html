@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <h3>Results</h3><br>
+
+    Your shortest commute time is:<br>
+    MAP HERE<br><br>
+
+    <b>Possible Routes:</b><br><br>
+
+    <form action="/play" method="POST">
+
+    <!-- {% for route in routes %} -->
+    <!-- {% endfor %} -->
+
+    <!-- put this in the loop of all the routes you find  -->
+    <!-- pass route (time) to 'play' -->
+
+
+      <div class="row">
+        <div class="col-sm">
+          A, C, E transfer to the F
+        </div>
+        <div class="col-sm text-center">
+          45 min.
+        </div>
+        <div class="col-sm">
+          <button type="submit" class="btn btn-danger btn-sm float-right" name="route" value="{route}">Play</button><br>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+{% endblock content %}

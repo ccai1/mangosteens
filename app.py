@@ -59,10 +59,28 @@ def register():
         flash("Pick a username without apostrophes")
     return redirect(url_for('home'))
 
-@app.route('/customize', methods=['POST', 'GET'])
-def customize():
+@app.route('/route', methods=['POST', 'GET'])
+def route():
+    '''runs the routing algorithm'''
+    return render_template('route.html')
+
+@app.route('/play', methods=['POST', 'GET'])
+def play():
     '''runs the song algorithm'''
-    return render_template('result.html')
+    # route = request.form['route']
+    # get route_time and route_info and pass to play.html
+    # call algorithm with route_time
+    return render_template('play.html')
+
+# Consider: Do we need an edit page?
+#
+@app.route('/edit', methods=['POST', 'GET'])
+def edit():
+    '''displays the playlist with options to delete, select, and shuffle'''
+    # playlist = request.form['playlist']
+    # getting songs and to display
+    # return render_template('edit.html')
+    return redirect(url_for('play'))
 
 @app.route('/logout')
 def logout():

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+
+    <h3>Your Info</h3><br>
+
+    <b>Your route time:</b> 1 hr. 5 min.<br>
+    <b>Your route:</b> 2, 3 transfer to the R<br><br>
+
+    SMALL MAP HERE <br><br>
+
+    <b>Mood:</b> Depressing<br>
+    <b>Genre:</b> Pop<br><br>
+
+    <hr>
+
+    <form action="/edit" method = "POST">
+
+    <div class="row">
+      <div class="col-sm">
+        <h3>Our Playlist</h3>
+      </div>
+      <div class="col-sm">
+        <button type="submit" class="btn btn-info float-right" name="listen" value="{listen}">Play</button>
+      </div>
+    </div><br>
+
+    <h5>1 hr. 7 min.<br>
+    18 songs</h5><br>
+
+    <!-- {% for song in playlist %} -->
+    <!-- {% endfor %} -->
+
+    <!-- put this in the loop of all the songs found  -->
+
+
+
+      <div class="row">
+        <div class="col-sm">
+          "consequences"
+        </div>
+        <div class="col-sm">
+          Camila Cabello
+        </div>
+        <div class="col-sm">
+          <button type="submit" class="btn btn-danger btn-sm float-right" name="delete" value="{delete}">Delete</button><br>
+        </div>
+        <div class="col-sm">
+          <button type="submit" class="btn btn-warning btn-sm float-right" name="saved" value="{save}">Save</button><br>
+        </div>
+      </div><br>
+
+      <div class="row">
+        <div class="col-sm outline">
+          "Dying in LA"
+        </div>
+        <div class="col-sm">
+          Panic! At the Disco
+        </div>
+        <div class="col-sm">
+          <button type="submit" class="btn btn-danger btn-sm float-right" name="delete" value="{delete}">Delete</button><br>
+        </div>
+        <div class="col-sm">
+          <button type="submit" class="btn btn-warning btn-sm float-right" name="saved" value="{save}">Save</button><br>
+        </div>
+      </div><br><br>
+
+      <center><button type="submit" class="btn btn-primary btn-lg btn-block" name="shuffle" value="{shuffle}">Shuffle</button></center><br><br>
+
+    </form>
+
+{% endblock content %}
