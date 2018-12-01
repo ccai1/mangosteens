@@ -1,7 +1,4 @@
 {% extends "base.html"%}
-{% block title %}
-<h1 class="display-3 text-center">Smapify</h1>
-{% endblock title %}
 
 {% block greeting %}
 {% endblock greeting %}
@@ -11,13 +8,12 @@
 <div class="container">
   <h3 class="text-center">To create a customized playlist, please login.</h3>
 
-  {% set msgs = get_flashed_messages()%}
-  {% for each in msgs %}
-    <i class="text-danger">{{each}}</i>
-  {% endfor %}
-
   <div id="login-row" class="row justify-content-center align-items-center">
     <div id="login-column" class="col-md-6">
+      {% set msgs = get_flashed_messages()%}
+      {% for each in msgs %}
+        <i class="text-danger">{{each}}</i>
+      {% endfor %}
 
       <form action="/login" method="POST">
         <div class="form-group">

@@ -17,8 +17,13 @@
 
   </head>
   <body>
-    <h1>{% block title %} {% endblock %}</h1>
+    {% block title %}
+      <h1 class="display-3 text-center">Smapify</h1>
+    {% endblock title %}
     {% block content %}{% endblock %}
-    {% block footer %} &copymangosteens{% endblock %}
+    {% block footer %}
+      <br><br><center><a href = '/logout'><input type = "button" class="btn btn-dark btn-sm" value="logout"></input></a><br><br>
+      &copymangosteens</center>
+    {% endblock %}
   </body>
 </html>

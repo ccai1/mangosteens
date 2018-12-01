@@ -59,16 +59,16 @@ def register():
         flash("Pick a username without apostrophes")
     return redirect(url_for('home'))
 
+@app.route('/customize', methods=['POST', 'GET'])
+def customize():
+    '''runs the song algorithm'''
+    return render_template('result.html')
+
 @app.route('/logout')
 def logout():
     '''pops user from session, brings user back to home page'''
     session.pop('user')
     return redirect(url_for('home'))
-
-@app.route('/customize')
-def customize():
-    '''runs the song algorithm'''
-    return render_template('results.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
