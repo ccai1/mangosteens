@@ -64,6 +64,12 @@ angelaT -- 2018-11-29 4:34
 -Finished getting a list of map urls and time
 -Started on getting list of directions
 ==============================================================
+fabihaT -- 2018-11-29 8:12
+--------------------------------------------------------------
+-Updated card for Public Transit API
+-Read documentation on Public Transit API
+-Trialed examples for routing from the api
+==============================================================
 stefanT -- 2018-11-30 12:29
 --------------------------------------------------------------
 -Updated template.html
@@ -74,6 +80,11 @@ cathyC -- 2018-11-30 12:31
 -Fixed login bugs
 -Changed home.html design
 ==============================================================
+fabihaT -- 2018-11-30 2:27
+--------------------------------------------------------------
+-Incorporated finding geocoordinates from an address
+-Incorporated obtaining routes data from an origin and destination
+==============================================================
 cathyC -- 2018-12-01 11:32
 --------------------------------------------------------------
 -Added routing, playlist, and edit playlist pages
@@ -81,6 +92,19 @@ cathyC -- 2018-12-01 11:32
 ==============================================================
 angelaT -- 2018-12-01 2:59
 --------------------------------------------------------------
--Finished routing with MapQuest api 
+-Finished routing with MapQuest api
 -Fixed HTTP error 400 - Bad request
+==============================================================
+fabihaT -- 2018-12-01 5:34
+--------------------------------------------------------------
+-Fixed bug in obtaining directions. Can now get full data for
+ all possible routes
+-Incorporated obtaining current time to use concurrently with
+ obtaining directions
+==============================================================
+fabihaT -- 2018-12-02 7:13
+--------------------------------------------------------------
+-Added get methods for finding total time, number of transfers,
+ and step by step directions
+-Now directions are distinguishable for all modes of transportation
 ==============================================================
