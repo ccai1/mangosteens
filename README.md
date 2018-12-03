@@ -17,7 +17,7 @@ $ virtualenv venv
 4. Activate the virtual environment by typing ```$ . venv/bin/activate``` in the terminal and make sure it is running python3 by typing ```(venv)$ python --version``` in the terminal. 
 5. Clone this repository. To clone this repo, open a terminal session and navigate to the directory you want for this repository to located in. Then clone using SSH by typing ```(venv)$ git clone git@github.com:ccai1/mangosteens.git``` or clone using HTTPS by typing ```(venv)$ git clone https://github.com/ccai1/mangosteens.git``` in the terminal.
 6. Navigate to the Smapify repository by typing ```$ cd mangosteens/``` in the terminal. 
-7. Make sure you have all the dependencies installed in your virtual environment. If not, look at the **Dependencies section** below.
+7. Make sure you have all the dependencies installed in your virtual environment. If not, look at the [Dependencies section](https://github.com/ccai1/mangosteens#dependencies) below.
 8. Procure API keys... **(ADDING HOW TO PROCURE LATER)**
 9. Run the python file by typing ```(venv)$ python app.py``` in the terminal. 
 10. This should appear in the terminal after running the python file.   
@@ -31,7 +31,8 @@ $ virtualenv venv
 11. Open a web broswer and navigate to the link http://127.0.0.1:5000/.
 12. Follow the prompts of our application and enjoy!
 
-## Dependencies: **(ADDING FUNCTION AND PURPOSE OF IT LATER)**
+## Dependencies: 
+**(ADDING FUNCTION AND PURPOSE OF IT LATER)**
 * click==6.7
 * Flask==1.0.2
 * itsdangerous==0.24
