@@ -4,26 +4,25 @@
 <h1 class="display-3 text-center">Smapify</h1>
 {% endblock title %}
 
-{% set msgs = get_flashed_messages()%}
-{% for each in msgs %}
-<h1>{{each}}</h1>
-<br>
-{% endfor %}
-
 {% block content %}
 <div class="container">
 
   <h3>Find a customized Spotify playlist to fit your commute:</h3><br><br>
 
+  {% set msgs = get_flashed_messages()%}
+  {% for each in msgs %}
+    <i class="text-danger">{{each}}</i>
+  {% endfor %}
+
   <form action="/route" method="POST">
     <div class="form-group">
       <label for="start">Starting Address:</label>
-      <input type="text" class="form-control" id="start">
+      <input type="text" class="form-control" id="start" name="start">
     </div>
     <br>
     <div class="form-group">
       <label for="destination">Destination:</label>
-      <input type="text" class="form-control" id="destination">
+      <input type="text" class="form-control" id="destination" name="destination">
     </div>
     <br><br>
 
