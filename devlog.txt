@@ -5,8 +5,8 @@ Tabassum Fabiha
 Angela Tom
 pd 6
 ---------------------
-<Project Title/Description>
-
+Smapify
+Smapify is a web-based application that allows users to input their current location and the address of their destination to generate a playlist based on the duration of the trip and their current mood, favorite genre and other optional filters alongside with a set of directions for the trip.
 
  ______   ______   __   __   __       ______   _______
 /_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\
@@ -107,4 +107,10 @@ fabihaT -- 2018-12-02 7:13
 -Added get methods for finding total time, number of transfers,
  and step by step directions
 -Now directions are distinguishable for all modes of transportation
+==============================================================
+stefanT -- 2018-12-02 9:13
+--------------------------------------------------------------
+-Added requirements.txt
+-Started on the overview, instructions, and the dependencies 
+section the README.md
 ==============================================================
