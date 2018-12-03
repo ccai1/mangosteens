@@ -3,7 +3,7 @@
 ## Team mangosteens - Cathy Cai, Tabassum Fabiha, Angela Tom, Stefan Tan
 
 ## Overview:
-⋅⋅⋅ Smapify is a web-based application that allows users to input their current location and the address of their destination to generate a playlist based on the duration of the trip and their current mood, favorite genre and other optional filters alongside with a set of directions for the trip. Through the accounts that users make, they are able to save a favorite playlist along with the route that it is associated with it. With Smapify, users are **guaranteed** to know how to get to their destination while also jamming to music they enjoy!         
+⋅⋅⋅Smapify is a web-based application that allows users to input their current location and the address of their destination to generate a playlist based on the duration of the trip and their current mood, favorite genre and other optional filters alongside with a set of directions for the trip. Through the accounts that users make, they are able to save a favorite playlist along with the route that it is associated with it. With Smapify, users are **guaranteed** to know how to get to their destination while also jamming to music they enjoy!         
 
 ## Instructions to Run:
 1. Open a terminal session.
