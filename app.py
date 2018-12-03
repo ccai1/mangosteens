@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from passlib.hash import sha256_crypt
 
 import db_edit
+from util import routes, transit
 
 app = Flask(__name__)
 app.secret_key = os.urandom(8)
@@ -62,7 +63,34 @@ def register():
 @app.route('/route', methods=['POST', 'GET'])
 def route():
     '''runs the routing algorithm'''
-    return render_template('route.html')
+
+    start = request.form['start']
+    destination = request.form['destination']
+
+    '''WALKING DIRECTIONS'''
+    info = routes.getDirectionsInfo(start, destination, "pedestrian")
+    route = routes.get_directions(info)
+    time = routes.get_time(info)
+    time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
+    distance = routes.get_distance(info)
+    map = routes.get_maps(info)
+    print ("-----ROUTE INFO-----")
+    print (info)
+
+    '''TRANSIT DIRECTIONS - unfinished'''
+
+    # info = transit.get_transit_info(start, destination)
+    # time = transit.get_total_time(info)
+    # route = transit.get_directions(info)
+    # print ("-----TRANSIT INFO-----")
+    # print (info)
+
+    return render_template('route.html',
+                            time=time,
+                            distance=distance,
+                            map=map,
+                            routes=route,
+                            )
 
 @app.route('/play', methods=['POST', 'GET'])
 def play():

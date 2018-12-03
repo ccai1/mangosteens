@@ -10,9 +10,9 @@ def getDirectionsInfo(start, end, route_type):
     URL_STUB = "http://www.mapquestapi.com/directions/v2/route?"
     starting_address = fix_address(start)
     end_address = fix_address(end)
-    URL = URL_STUB + "key=" + KEY + "&from=" + starting_address + "&to=" + end_address + "&routeType=" + route_type 
+    URL = URL_STUB + "key=" + KEY + "&from=" + starting_address + "&to=" + end_address + "&routeType=" + route_type
     print(URL)
-    response = request.urlopen(URL) 
+    response = request.urlopen(URL)
     response = response.read()
     data = json.loads(response)
     return data
@@ -30,7 +30,7 @@ def fix_address(address):
 Returns realtime commute time
 '''
 def get_time(data):
-    return data['route']['realtime']
+    return data['route']['formattedTime']
 
 '''
 Returns distance of the route
@@ -65,5 +65,3 @@ def get_directions(data):
     return directions
 
 print(get_directions(getDirectionsInfo("345 Chambers St, New York, NY 10282","270 Greenwich St, New York","pedestrian")))
-
-
