@@ -15,7 +15,7 @@ $ python3 -m venv name
 4. Clone this repository. To clone this repo, open a terminal session and navigate to the directory you want for this repository to located in. Then clone using SSH by typing ```(venv)$ git clone git@github.com:ccai1/mangosteens.git``` or clone using HTTPS by typing ```(venv)$ git clone https://github.com/ccai1/mangosteens.git``` in the terminal.
 5. Navigate to the Smapify repository by typing ```$ cd mangosteens/``` in the terminal. 
 6. Make sure you have all the dependencies installed in your virtual environment. If not, look at the [Dependencies section](https://github.com/ccai1/mangosteens#dependencies) below.
-7. Procure API keys... **(ADDING HOW TO PROCURE LATER)**
+7. Procure [API keys](https://github.com/ccai1/mangosteens#apis)... 
 8. Run the python file by typing ```(venv)$ python app.py``` in the terminal. 
 9. This should appear in the terminal after running the python file.   
 ```
@@ -39,3 +39,14 @@ $ python3 -m venv name
 * pkg-resources==0.0.0
 * Werkzeug==0.14.1
 1. Install the dependencies listed above by typing ```(venv)$pip install -r <path-to-file>requirements.txt``` in your terminal. 
+
+## APIs:
+* Spotify
+
+   Used to retrieve songs that matches the user's inputs. It does not use API keys but instead uses OAuth2. To learn more about the Spotify API go [here](https://developer.spotify.com/web-api/). 
+* MapQuest (Directions API)
+
+   Used to retrieve directions, routes, and maps from the user's current location to their destination. To sign up and obtain an API key go [here](https://developer.mapquest.com/documentation/).  
+* Public Transit
+
+   Used to retrieve routes using public transits. To learn more about this API go [here](https://developer.here.com/documentation/transit/topics/what-is.html).
