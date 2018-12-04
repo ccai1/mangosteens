@@ -1,0 +1,12 @@
+body{
+    margin: auto;
+    background-color: black;
+}
+#login{
+    display: block;
+    float: left;
+}
+#register{
+    display: block;
+    float: right;
+}

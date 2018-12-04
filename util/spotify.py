@@ -24,7 +24,7 @@ auth_query_parameters = {
 }
 
 
-url_args = "&".join(["{}={}".format(key, urllibparse.quote(val))
+url_args = "&".join(["{}={}".format(key, parse.quote(val))
                 for key, val in list(auth_query_parameters.items())])
 
 

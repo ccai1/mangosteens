@@ -65,8 +65,11 @@
         </div>
       </div><br><br>
 
-      <center><button type="submit" class="btn btn-primary btn-lg btn-block" name="shuffle" value="{shuffle}">Shuffle</button></center><br><br>
+      <button type="submit" class="btn btn-primary btn-lg btn-block" name="shuffle" value="{shuffle}">Shuffle</button><br><br>
 
     </form>
 
 {% endblock content %}
+{% block footer %}
+      <br><br><a href = '/logout'><input type = "button" class="btn btn-dark btn-sm" value="logout"></input></a><br><br>
+{% endblock %}
