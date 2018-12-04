@@ -103,11 +103,9 @@ def route():
             '''TRANSIT DIRECTIONS'''
 
             info = transit.get_transit_info(start, destination)
-            time = transit.get_total_time(info)
-            route = transit.get_directions(info)
-
-            print ("-----TRANSIT INFO-----")
-            print (info)
+            
+            time = transit.get_total_time(info[0])
+            route = transit.get_directions(info[0])
 
         return render_template('route.html',
                                 time=time,

@@ -25,8 +25,6 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
         arr_long = arr["lng"]
 
         time = curr_time()
-        print ('time is...')
-        print (time)
         app_id = "3yvzQG60zJIScGOHeEVK"
         app_code = "51NmvNiDfNtVqKmYgKBaMg"
 
@@ -58,6 +56,7 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
         try except
 """
 def get_total_time(data):
+    print ("---DATA IS---")
     return data["duration"][2:]
 
 """

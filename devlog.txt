@@ -132,3 +132,7 @@ cathyC -- 2018-12-04 8:36
 -Added transit options for the user to choose from
 TO DO: fix transit bugs
 ==============================================================
+cathyC -- 2018-12-04 12:37
+--------------------------------------------------------------
+-Added the first public transit route to app.py (linked all possible modes)
+==============================================================
