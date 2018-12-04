@@ -29,15 +29,15 @@ $ python3 -m venv name
 11. Follow the prompts of our application and enjoy!
 
 ## Dependencies: 
-**(ADDING FUNCTION AND PURPOSE OF IT LATER)**
-* click==6.7
 * Flask==1.0.2
-* itsdangerous==0.24
+
+   Used as the framework for the app. 
 * Jinja2==2.10
-* MarkupSafe==1.0
+
+   Template engine for Python. 
 * passlib==1.7.1
-* pkg-resources==0.0.0
-* Werkzeug==0.14.1
+
+   Hashes password to increase security of app. 
 1. Install the dependencies listed above by typing ```(venv)$pip install -r <path-to-file>requirements.txt``` in your terminal. 
 
 ## APIs:
