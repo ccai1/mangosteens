@@ -16,15 +16,20 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
     try:
         URL_STUB = "https://transit.api.here.com/v3/route.json?dep={},{}&arr={},{}&time={}&app_id={}&app_code={}"
 
+        # optains a list => [latitude, longitude] of address given
         dep = get_geo(location)
         arr = get_geo(destination)
 
+        # assign the lat and longs to variables
         dep_lat = dep["lat"]
         dep_long = dep["lng"]
         arr_lat = arr["lat"]
         arr_long = arr["lng"]
 
+        # current time + 5 minutes
         time = curr_time()
+
+        # api authentication
         app_id = "3yvzQG60zJIScGOHeEVK"
         app_code = "51NmvNiDfNtVqKmYgKBaMg"
 
