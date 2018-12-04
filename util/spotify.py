@@ -1,4 +1,30 @@
-#https://github.com/mari-linhares/spotify-flask/blob/master/spotify_requests/spotify.py
+from rauth import OAuth2Service
+
+spotify = OAuth2Service(
+    client_id = "77cf833ba97d4dbfbbd887ba64c6c73c",
+    client_secret = "3f9ac93496244f04a95b6a4a216dc951",
+    name="spotify",
+    authorize_url = "https://accounts.spotify.com/authorize",
+    access_token_url = "https://accounts.spotify.com/api/token",
+    base_url = "https://accounts.spotify.com/")
+
+redirect_uri = "http://127.0.0.1:5000/callback/"
+
+params = {'response_type': 'code',
+          'redirect_uri': redirect_uri,
+          "client_id": "77cf833ba97d4dbfbbd887ba64c6c73c"}
+
+url = spotify.get_authorize_url(**params)
+#print(url)
+
+#CODE = "AQBG3As_4b-5wKX17hKgoy20pzBQWL9KDs6jAa-vhG70Zrf0UeYV933Y9TsrMSNdJcYUciqTIbbnKr9eb9hBMCT0_L58W436yCL4-llu993OViHgnfIheqjxBaQTEfB5nQictsNhIN6hZ-Z8A00pgUdwSAB33UYHhMoR6IHGKd8Sbg4HqvVMfmlY9aGQcc2xUhGaZm5wBQ"
+
+session = spotify.get_auth_session(data={'code': 'AQBG3As_4b-5wKX17hKgoy20pzBQWL9KDs6jAa-vhG70Zrf0UeYV933Y9TsrMSNdJcYUciqTIbbnKr9eb9hBMCT0_L58W436yCL4-llu993OViHgnfIheqjxBaQTEfB5nQictsNhIN6hZ-Z8A00pgUdwSAB33UYHhMoR6IHGKd8Sbg4HqvVMfmlY9aGQcc2xUhGaZm5wBQ',
+                                           'redirect_uri': redirect_uri})
+
+print( session.get('me').json()['username'] )
+
+'''#https://github.com/mari-linhares/spotify-flask/blob/master/spotify_requests/spotify.py
 
 import json
 import base64
@@ -54,3 +80,7 @@ def authorize(auth_token):
     return auth_header
 
 
+def searchTracks(song, artist):
+    URL= "https://api.spotify.com/v1/search?q=name:' + song + '%20artist:' + artist + '&type=track&limit=10"
+    return URL
+'''
