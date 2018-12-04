@@ -69,37 +69,56 @@ def route():
     print ("-----MODE-----")
     print (mode)
 
-    if (start == ""):
+    if start and destination:
+        info = routes.getDirectionsInfo(start, destination, "shortest")
+        map = routes.get_maps(info)
+        distance = routes.get_distance(info)
+
+    # add driving to this
+        if mode == "Walking" or mode == "Driving" or mode == "Bicycle":
+            '''runs the route.py algorithm'''
+
+            '''ROUTE DIRECTIONS'''
+
+            if mode == "Walking":
+                try:
+                    info = routes.getDirectionsInfo(start, destination, "pedestrian")
+                    route = routes.get_directions(info)
+                except:
+                    flash("You can't walk that far! Please select a different transportation type.")
+                    return redirect(url_for('home'))
+
+            elif mode == "Bicycle":
+                info = routes.getDirectionsInfo(start, destination, "bicycle")
+
+            route = routes.get_directions(info)
+            time = routes.get_time(info)
+            time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
+
+            print ("-----ROUTE INFO-----")
+            print (info)
+
+        else:
+
+            '''TRANSIT DIRECTIONS'''
+
+            info = transit.get_transit_info(start, destination)
+            time = transit.get_total_time(info)
+            route = transit.get_directions(info)
+
+            print ("-----TRANSIT INFO-----")
+            print (info)
+
+        return render_template('route.html',
+                                time=time,
+                                distance=distance,
+                                map=map,
+                                routes=route,
+                                )
+    else:
         flash("Please fill in all address forms.")
         return redirect(url_for('home'))
-    # add driving to this
-    elif mode == "Walking":
-        '''runs the routing algorithm'''
-        info = routes.getDirectionsInfo(start, destination, "pedestrian")
-        route = routes.get_directions(info)
-        time = routes.get_time(info)
-        time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
-        distance = routes.get_distance(info)
-        map = routes.get_maps(info)
 
-        '''WALKING DIRECTIONS'''
-        print ("-----ROUTE INFO-----")
-        print (info)
-    else:
-        '''TRANSIT DIRECTIONS - unfinished'''
-
-        info = transit.get_transit_info(start, destination)
-        time = transit.get_total_time(info)
-        route = transit.get_directions(info)
-        print ("-----TRANSIT INFO-----")
-        print (info)
-
-    return render_template('route.html',
-                            time=time,
-                            # distance=distance,
-                            # map=map,
-                            routes=route,
-                            )
 
 @app.route('/play', methods=['POST', 'GET'])
 def play():

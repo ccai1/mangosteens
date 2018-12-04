@@ -7,11 +7,11 @@
 {% block content %}
 <div class="container">
 
-  <h3>Find a customized Spotify playlist to fit your commute:</h3><br><br>
+  <h3>Find a customized Spotify playlist to fit your commute:</h3><br>
 
   {% set msgs = get_flashed_messages()%}
   {% for each in msgs %}
-    <i class="text-danger">{{each}}</i>
+    <i class="text-danger">{{each}}</i><br><br>
   {% endfor %}
 
   <form action="/route" method="POST">
@@ -30,6 +30,7 @@
       <select class="form-control" name="mode">
         <option>Walking</option>
         <option>Driving</option>
+        <option>Bicycle</option>
         <option>High Speed Train</option>
         <option>Intercity Train</option>
         <option>Inter Regional Train</option>
@@ -84,9 +85,6 @@
   </form>
 
 {% endblock content %}
-{% block footer %}
-      <br><br><a href = '/logout'><input type = "button" class="btn btn-dark btn-sm" value="logout"></input></a><br><br>
-{% endblock %}
 <!--  <b>Mood:</b>
       <select>
 	<option value="happy">Happy</option>

@@ -25,6 +25,8 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
         arr_long = arr["lng"]
 
         time = curr_time()
+        print ('time is...')
+        print (time)
         app_id = "3yvzQG60zJIScGOHeEVK"
         app_code = "51NmvNiDfNtVqKmYgKBaMg"
 
@@ -204,8 +206,13 @@ to = "116th St & Broadway, New York, NY 10027"
 get_geo(now)
 get_geo(to)
 
-rou = get_transit_info(now, to)
+print ('---TESTING transit.py---')
 
-# print(get_total_time(rou[0]))
+print ('rou')
+rou = get_transit_info(now, to)
+print (rou)
+
+print ('time')
+print(get_total_time(rou[0]))
 print("\n Getting the directions to the first route: ")
-# print(get_directions(rou[0]))
+print(get_directions(rou[0]))

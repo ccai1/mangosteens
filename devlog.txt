@@ -111,7 +111,7 @@ fabihaT -- 2018-12-02 7:13
 stefanT -- 2018-12-02 9:13
 --------------------------------------------------------------
 -Added requirements.txt
--Started on the overview, instructions, and the dependencies 
+-Started on the overview, instructions, and the dependencies
 sections the README.md
 ==============================================================
 stefanT -- 2018-12-03 23:59
@@ -123,5 +123,12 @@ angelaT -- 2018-12-04 1:59
 --------------------------------------------------------------
 -Fixed spotify.py error
 -Changed footer for html files + started css
--Worked on OAuth 
+-Worked on OAuth
+==============================================================
+cathyC -- 2018-12-04 8:36
+--------------------------------------------------------------
+-Added routes algorithm to app.py
+-Fixed front-end bugs with form info
+-Added transit options for the user to choose from
+TO DO: fix transit bugs
 ==============================================================
