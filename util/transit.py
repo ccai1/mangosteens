@@ -162,6 +162,29 @@ def get_geo(place):
 
     return geo_code
 
+def get_rev_geo(lat, long):
+    URL_STUB = "http://www.mapquestapi.com/geocoding/v1/reverse?key={}&location={},{}"
+
+    key = "HetYdvBFjsiAKOqjuLAUOmCWrHaRvqDS"
+
+    URL = URL_STUB.format(key, lat, long)
+    print(URL)
+    print()
+
+    response = request.urlopen(URL)
+    response = response.read()
+    data = json.loads(response)
+
+    #print(data)
+    my_data = data["results"][0]["locations"][0]
+    address = my_data["street"] + ' '
+    address += my_data["adminArea5"] + ' '
+    address += my_data["adminArea3"] + ' '
+    address += my_data["postalCode"]
+    print(address)
+
+    return addres
+
 """
     Fixes the address to make it appropriate for the api to take in
     Parameter; place -> address
@@ -206,11 +229,19 @@ def curr_time():
 now = "345 Chambers St New York NY 10282"
 to = "116th St & Broadway, New York, NY 10027"
 
-get_geo(now)
-get_geo(to)
+x = get_geo(now)
+y = get_geo(to)
 
+print ('---TESTING transit.py---')
+
+print ('rou')
 rou = get_transit_info(now, to)
+print (rou)
 
+print ('time')
 print(get_total_time(rou[0]))
 print("\n Getting the directions to the first route: ")
 print(get_directions(rou[0]))
+
+
+get_rev_geo(x[0],x[1])

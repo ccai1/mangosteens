@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="./static/main.css">
+    <link rel="stylesheet" href={{url_for('static', filename='main.css')}}>
     <title>{% block header %}{% endblock %}</title>
 
   </head>
@@ -15,9 +15,12 @@
       <h1 class="display-3 text-center">Smapify</h1>
     {% endblock title %}
     {% block content %}{% endblock %}
+
     {% block footer %}
-      <br><br><center><a href = '/logout'><input type = "button" class="btn btn-dark btn-sm" value="logout"></input></a><br><br>
-      &copymangosteens</center>
+          <center><br><br><a href = '/logout'><input type = "button" class="btn btn-dark btn-sm" value="Logout"></input></a><br><br></center>
     {% endblock %}
+
+    <center><div id = "footer">&copymangosteens</div></center>
+
   </body>
 </html>

@@ -33,7 +33,7 @@ def fix_address(address):
 Returns realtime commute time
 '''
 def get_time(data):
-    return data['route']['realtime']
+    return data['route']['formattedTime']
 
 '''
 Returns distance of the route

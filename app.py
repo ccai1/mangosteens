@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from passlib.hash import sha256_crypt
 
 import db_edit
+from util import routes, transit
 
 app = Flask(__name__)
 app.secret_key = os.urandom(8)
@@ -62,14 +63,62 @@ def register():
 @app.route('/route', methods=['POST', 'GET'])
 def route():
     start = request.form['start'].strip()
-    dest = request.form['destination'].strip()
+    destination = request.form['destination'].strip()
+    mode= request.form['mode']
 
-    if (start == ""):
+    print ("-----MODE-----")
+    print (mode)
+
+    if start and destination:
+        info = routes.getDirectionsInfo(start, destination, "shortest")
+        map = routes.get_maps(info)
+        distance = routes.get_distance(info)
+
+    # add driving to this
+        if mode == "Walking" or mode == "Driving" or mode == "Bicycle":
+            '''runs the route.py algorithm'''
+
+            '''ROUTE DIRECTIONS'''
+
+            if mode == "Walking":
+                try:
+                    info = routes.getDirectionsInfo(start, destination, "pedestrian")
+                    route = routes.get_directions(info)
+                except:
+                    flash("You can't walk that far! Please select a different transportation type.")
+                    return redirect(url_for('home'))
+
+            elif mode == "Bicycle":
+                info = routes.getDirectionsInfo(start, destination, "bicycle")
+
+            route = routes.get_directions(info)
+            time = routes.get_time(info)
+            time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
+
+            print ("-----ROUTE INFO-----")
+            print (info)
+
+        else:
+
+            '''TRANSIT DIRECTIONS'''
+
+            info = transit.get_transit_info(start, destination)
+            time = transit.get_total_time(info)
+            route = transit.get_directions(info)
+
+            print ("-----TRANSIT INFO-----")
+            print (info)
+
+        return render_template('route.html',
+                                time=time,
+                                distance=distance,
+                                map=map,
+                                routes=route,
+                                )
+    else:
         flash("Please fill in all address forms.")
-        return redirect(url_for('home'))    
+        return redirect(url_for('home'))
 
-    '''runs the routing algorithm'''
-    return render_template('route.html')
 
 @app.route('/play', methods=['POST', 'GET'])
 def play():

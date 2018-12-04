@@ -6,15 +6,16 @@
 {% block content %}
 {% block login %}
 <div class="container">
+    <div id="login">
   <h3 class="text-center">To create a customized playlist, please login.</h3>
-
+ 
   <div id="login-row" class="row justify-content-center align-items-center">
     <div id="login-column" class="col-md-6">
       {% set msgs = get_flashed_messages()%}
       {% for each in msgs %}
         <i class="text-danger">{{each}}</i>
       {% endfor %}
-
+     
       <form action="/login" method="POST">
         <div class="form-group">
           <label for="usr">Username</label>
@@ -29,12 +30,12 @@
       </form><br>
     </div>
   </div>
-
+</div>
 {% endblock login %}
 
 <div id="login-row" class="row justify-content-center align-items-center">
   <div id="login-column" class="col-md-6">
-
+      <div id="register">
       <h3 class="text-center">New User? Register now!</h3>
       {% block register %}
       <form action="/register" method="POST">
@@ -55,6 +56,7 @@
       {% endblock register %}
     </div>
   </div>
+</div>
 </div>
 
 {% endblock content %}
