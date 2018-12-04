@@ -63,39 +63,41 @@ def register():
 @app.route('/route', methods=['POST', 'GET'])
 def route():
     start = request.form['start'].strip()
-    dest = request.form['destination'].strip()
+    destination = request.form['destination'].strip()
+    mode= request.form['mode']
+
+    print ("-----MODE-----")
+    print (mode)
 
     if (start == ""):
         flash("Please fill in all address forms.")
-        return redirect(url_for('home'))    
+        return redirect(url_for('home'))
+    # add driving to this
+    elif mode == "Walking":
+        '''runs the routing algorithm'''
+        info = routes.getDirectionsInfo(start, destination, "pedestrian")
+        route = routes.get_directions(info)
+        time = routes.get_time(info)
+        time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
+        distance = routes.get_distance(info)
+        map = routes.get_maps(info)
 
-    '''runs the routing algorithm'''
+        '''WALKING DIRECTIONS'''
+        print ("-----ROUTE INFO-----")
+        print (info)
+    else:
+        '''TRANSIT DIRECTIONS - unfinished'''
 
-    start = request.form['start']
-    destination = request.form['destination']
-
-    '''WALKING DIRECTIONS'''
-    info = routes.getDirectionsInfo(start, destination, "pedestrian")
-    route = routes.get_directions(info)
-    time = routes.get_time(info)
-    time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
-    distance = routes.get_distance(info)
-    map = routes.get_maps(info)
-    print ("-----ROUTE INFO-----")
-    print (info)
-
-    '''TRANSIT DIRECTIONS - unfinished'''
-
-    # info = transit.get_transit_info(start, destination)
-    # time = transit.get_total_time(info)
-    # route = transit.get_directions(info)
-    # print ("-----TRANSIT INFO-----")
-    # print (info)
+        info = transit.get_transit_info(start, destination)
+        time = transit.get_total_time(info)
+        route = transit.get_directions(info)
+        print ("-----TRANSIT INFO-----")
+        print (info)
 
     return render_template('route.html',
                             time=time,
-                            distance=distance,
-                            map=map,
+                            # distance=distance,
+                            # map=map,
                             routes=route,
                             )
 

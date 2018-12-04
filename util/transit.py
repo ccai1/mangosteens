@@ -206,6 +206,6 @@ get_geo(to)
 
 rou = get_transit_info(now, to)
 
-print(get_total_time(rou[0]))
+# print(get_total_time(rou[0]))
 print("\n Getting the directions to the first route: ")
-print(get_directions(rou[0]))
+# print(get_directions(rou[0]))
