@@ -62,6 +62,13 @@ def register():
 
 @app.route('/route', methods=['POST', 'GET'])
 def route():
+    start = request.form['start'].strip()
+    dest = request.form['destination'].strip()
+
+    if (start == ""):
+        flash("Please fill in all address forms.")
+        return redirect(url_for('home'))    
+
     '''runs the routing algorithm'''
 
     start = request.form['start']

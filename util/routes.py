@@ -6,16 +6,19 @@ Getting json data from mapquest api (directions api)
 route_type can be either fastest, shortest, pedestrian, or bicycle
 '''
 def getDirectionsInfo(start, end, route_type):
-    KEY = "HetYdvBFjsiAKOqjuLAUOmCWrHaRvqDS"
-    URL_STUB = "http://www.mapquestapi.com/directions/v2/route?"
-    starting_address = fix_address(start)
-    end_address = fix_address(end)
-    URL = URL_STUB + "key=" + KEY + "&from=" + starting_address + "&to=" + end_address + "&routeType=" + route_type
-    print(URL)
-    response = request.urlopen(URL)
-    response = response.read()
-    data = json.loads(response)
-    return data
+    try:
+        KEY = "HetYdvBFjsiAKOqjuLAUOmCWrHaRvqDS"
+        URL_STUB = "http://www.mapquestapi.com/directions/v2/route?"
+        starting_address = fix_address(start)
+        end_address = fix_address(end)
+        URL = URL_STUB + "key=" + KEY + "&from=" + starting_address + "&to=" + end_address + "&routeType=" + route_type
+        print(URL)
+        response = request.urlopen(URL)
+        response = response.read()
+        data = json.loads(response)
+        return data
+    except:
+        return False
 
 '''
 Fix the address to a working url

@@ -12,31 +12,35 @@ from datetime import datetime
         Check to make sure that addresses are appropriate and return geocodes
 """
 def get_transit_info(location, destination): # hide key, vars for start/end address, key
-    URL_STUB = "https://transit.api.here.com/v3/route.json?dep={},{}&arr={},{}&time={}&app_id={}&app_code={}"
 
-    dep = get_geo(location)
-    arr = get_geo(destination)
+    try:
+        URL_STUB = "https://transit.api.here.com/v3/route.json?dep={},{}&arr={},{}&time={}&app_id={}&app_code={}"
 
-    dep_lat = dep["lat"]
-    dep_long = dep["lng"]
-    arr_lat = arr["lat"]
-    arr_long = arr["lng"]
+        dep = get_geo(location)
+        arr = get_geo(destination)
 
-    time = curr_time()
-    app_id = "3yvzQG60zJIScGOHeEVK"
-    app_code = "51NmvNiDfNtVqKmYgKBaMg"
+        dep_lat = dep["lat"]
+        dep_long = dep["lng"]
+        arr_lat = arr["lat"]
+        arr_long = arr["lng"]
 
-    URL = URL_STUB.format(dep_lat, dep_long, arr_lat, arr_long, time, app_id, app_code)
-    print(URL)
+        time = curr_time()
+        app_id = "3yvzQG60zJIScGOHeEVK"
+        app_code = "51NmvNiDfNtVqKmYgKBaMg"
 
-    response = request.urlopen(URL)
-    response = response.read()
-    data = json.loads(response)
+        URL = URL_STUB.format(dep_lat, dep_long, arr_lat, arr_long, time, app_id, app_code)
+        print(URL)
 
-    routes = data["Res"]["Connections"]["Connection"]
+        response = request.urlopen(URL)
+        response = response.read()
+        data = json.loads(response)
 
-    #print(routes)
-    return routes
+        routes = data["Res"]["Connections"]["Connection"]
+
+        #print(routes)
+        return routes
+    except:
+        return False
 
 ########################################
 #####   START OF GETS FROM ROUTE   #####
