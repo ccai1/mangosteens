@@ -51,9 +51,7 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
 
         #print(routes)
         return routes
-            walking = ""
-            start = 0
-            end = 0
+
     except:
         return False
 
