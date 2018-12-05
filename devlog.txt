@@ -144,5 +144,13 @@ angelaT -- 2018-12-04 10:50
 --------------------------------------------------------------
 -Stopped working on spotify.py (auth token and header functional for backup purposes)
 -Fixed bugs with all keys
--Started working on last.fm api (obtaining track info) 
+-Started working on last.fm api (obtaining track info)
+==============================================================
+fabihaT -- 2018-12-04 11:17
+--------------------------------------------------------------
+-Fixed bugs in registration
+-Fixed other bugs in app.py
+-Incorporated more descriptive directions for walking to station or from a station
+-Added comments to transit.py
+-Fixed bugs in transit.py
 ==============================================================
