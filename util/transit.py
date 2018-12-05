@@ -51,7 +51,6 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
 #####   START OF GETS FROM ROUTE   #####
 ########################################
 
-
 """
     Returns the total time for a single route
     Parameter: data -> one possible route
@@ -101,7 +100,8 @@ def get_directions(data):
         dicts["time"] = step["Journey"]["duration"][2:] # time to complete single step
 
         if step["mode"] == 20:
-            dir = "Walk to "
+            to_lat = step["Arr"]["Stn"][""]
+            #####   WORKING ON ADDING DIRECTIONS FOR WALKING TO STATIONS 
 
             if "Stn" in step["Arr"].keys():
                 dir += step["Arr"]["Stn"]["name"] + " station."
@@ -183,7 +183,7 @@ def get_rev_geo(lat, long):
     address += my_data["postalCode"]
     print(address)
 
-    return addres
+    return address
 
 """
     Fixes the address to make it appropriate for the api to take in
@@ -225,23 +225,30 @@ def curr_time():
     return time
 
 
-
 now = "345 Chambers St New York NY 10282"
 to = "116th St & Broadway, New York, NY 10027"
-
-x = get_geo(now)
-y = get_geo(to)
-
-print ('---TESTING transit.py---')
-
+#
+# x = get_geo(now)
+# y = get_geo(to)
+#
+# print ('---TESTING transit.py---')
+#
 print ('rou')
 rou = get_transit_info(now, to)
-print (rou)
-
-print ('time')
-print(get_total_time(rou[0]))
+# print (rou)
+#
+# print ('time')
+# print(get_total_time(rou[0]))
 print("\n Getting the directions to the first route: ")
 print(get_directions(rou[0]))
 
+# print(x)
+# get_rev_geo(x["lat"], x["lng"])
+# get_rev_geo(y["lat"], y["lng"])
 
-get_rev_geo(x[0],x[1])
+lat = 40.715478
+long = -74.009266
+
+get_rev_geo(lat, long)
+
+# print(get_total_time(rou[0]))
