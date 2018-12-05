@@ -1,11 +1,11 @@
 body{
     margin: auto;
 }
-#login{
+/* #login{
     display: block;
-    float: left;
+    /* float: left; */
 }
 #register{
     display: block;
-    float: right;
-}
+    /* float: right; */
+} */
