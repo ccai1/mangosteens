@@ -1,13 +1,18 @@
 import json
 from urllib import request, parse
 
+# api authentication
+with open("data/keys.json") as f:
+	api_keys = json.load(f)
+
+KEY = api_keys["routes_key"]
+
 '''
 Getting json data from mapquest api (directions api)
 route_type can be either fastest, shortest, pedestrian, or bicycle
 '''
 def getDirectionsInfo(start, end, route_type):
     try:
-        KEY = "HetYdvBFjsiAKOqjuLAUOmCWrHaRvqDS"
         URL_STUB = "http://www.mapquestapi.com/directions/v2/route?"
         starting_address = fix_address(start)
         end_address = fix_address(end)

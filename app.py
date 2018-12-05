@@ -10,7 +10,6 @@ from util import routes, transit
 app = Flask(__name__)
 app.secret_key = os.urandom(8)
 
-
 @app.route('/')
 def home():
     ''' this function loads up home session, from where user can login and navigate through the website'''
