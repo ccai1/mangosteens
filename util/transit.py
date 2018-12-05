@@ -5,7 +5,7 @@ from datetime import datetime
 from util import routes
 
 # api authentication
-with open("data/keys.json") as f:
+with open("../data/keys.json") as f:
 	api_keys = json.load(f)
 
 app_id = api_keys["transit_id"]
