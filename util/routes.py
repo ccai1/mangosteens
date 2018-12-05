@@ -2,7 +2,7 @@ import json
 from urllib import request, parse
 
 # api authentication
-with open("data/keys.json") as f:
+with open("../data/keys.json") as f:
 	api_keys = json.load(f)
 
 KEY = api_keys["routes_key"]

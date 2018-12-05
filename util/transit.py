@@ -3,7 +3,7 @@ from urllib import request, parse
 from datetime import datetime
 
 # api authentication
-with open("data/keys.json") as f:
+with open("../data/keys.json") as f:
 	api_keys = json.load(f)
 
 app_id = api_keys["transit_id"]
