@@ -41,9 +41,9 @@ $ python3 -m venv name
 1. Install the dependencies listed above by typing ```(venv)$pip install -r <path-to-file>requirements.txt``` in your terminal. 
 
 ## APIs:
-* Spotify
+* Last.fm
 
-   Used to retrieve songs that matches the user's inputs. It does not use API keys but instead uses OAuth2. To learn more about the Spotify API go [here](https://developer.spotify.com/web-api/). 
+   Used to retrieve songs that matches the user's inputs. Registration to Last.fm is required to obtain a API key. After obtaining a Last.fm account go [here](https://www.last.fm/api/account/create) to obtain your API key. 
 * MapQuest (Directions API)
 
    Used to retrieve directions, routes, and maps from the user's current location to their destination. To sign up and obtain an API key go [here](https://developer.mapquest.com/documentation/).  
