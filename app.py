@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from passlib.hash import sha256_crypt
 
 import db_edit
-from util import routes, transit
+from util import routes, transit, music
 
 app = Flask(__name__)
 app.secret_key = os.urandom(8)
@@ -16,7 +16,9 @@ def home():
     #checks if there is a session
     if 'user' in session:
         #if there is then just show the welcome screen
-        return render_template('welcome.html', user=session['user'])
+        return render_template('welcome.html',
+                                top_hit = music.get_top_tracks(1),
+                                user=session['user'])
     else:
         #if not just ask for info
         return render_template('home.html')
@@ -94,8 +96,8 @@ def route():
             time = routes.get_time(info)
             time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
 
-            print ("-----ROUTE INFO-----")
-            print (info)
+            # print ("-----ROUTE INFO-----")
+            # print (info)
 
         else:
 
@@ -133,10 +135,11 @@ def route():
 @app.route('/play', methods=['POST', 'GET'])
 def play():
     '''runs the song algorithm'''
-    # route = request.form['route']
-    # get route_time and route_info and pass to play.html
-    # call algorithm with route_time
-    return render_template('play.html')
+    time = request.form.get('time')
+    playlist = music.find_playlist(time)
+    return render_template('play.html',
+                            playlist = playlist
+    )
 
 # Consider: Do we need an edit page?
 #

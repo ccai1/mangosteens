@@ -2,9 +2,8 @@ import json
 from urllib import request, parse
 from datetime import datetime
 
-import routes as ro
 # api authentication
-with open("../data/keys.json") as f:
+with open("data/keys.json") as f:
 	api_keys = json.load(f)
 
 app_id = api_keys["transit_id"]
@@ -21,39 +20,69 @@ app_code = api_keys["transit_code"]
 """
 def get_transit_info(location, destination): # hide key, vars for start/end address, key
 
-    try:
-        URL_STUB = "https://transit.api.here.com/v3/route.json?dep={},{}&arr={},{}&time={}&app_id={}&app_code={}"
+    # try:
+    #     URL_STUB = "https://transit.api.here.com/v3/route.json?dep={},{}&arr={},{}&time={}&app_id={}&app_code={}"
+	#
+    #     # optains a list => [latitude, longitude] of address given
+    #     dep = get_geo(location)
+    #     arr = get_geo(destination)
+	#
+    #     # assign the lat and longs to variables
+    #     dep_lat = dep["lat"]
+    #     dep_long = dep["lng"]
+    #     arr_lat = arr["lat"]
+    #     arr_long = arr["lng"]
+	#
+    #     # current time + 5 minutes
+    #     time = curr_time()
+	#
+	# 	# setting the url
+    #     URL = URL_STUB.format(dep_lat, dep_long, arr_lat, arr_long, time, app_id, app_code)
+    #     # print(URL)
+	#
+    #     # getting data
+    #     response = request.urlopen(URL)
+    #     response = response.read()
+    #     data = json.loads(response)
+	#
+    #     # getting just the routes
+    #     routes = data["Res"]["Connections"]["Connection"]
+	#
+    #     #print(routes)
+    #     return routes
+	#
+    # except:
+    #     return False
 
-        # optains a list => [latitude, longitude] of address given
-        dep = get_geo(location)
-        arr = get_geo(destination)
+	URL_STUB = "https://transit.api.here.com/v3/route.json?dep={},{}&arr={},{}&time={}&app_id={}&app_code={}"
 
-        # assign the lat and longs to variables
-        dep_lat = dep["lat"]
-        dep_long = dep["lng"]
-        arr_lat = arr["lat"]
-        arr_long = arr["lng"]
+	# optains a list => [latitude, longitude] of address given
+	dep = get_geo(location)
+	arr = get_geo(destination)
 
-        # current time + 5 minutes
-        time = curr_time()
+	# assign the lat and longs to variables
+	dep_lat = dep["lat"]
+	dep_long = dep["lng"]
+	arr_lat = arr["lat"]
+	arr_long = arr["lng"]
 
-		# setting the url
-        URL = URL_STUB.format(dep_lat, dep_long, arr_lat, arr_long, time, app_id, app_code)
-        # print(URL)
+	# current time + 5 minutes
+	time = curr_time()
 
-        # getting data
-        response = request.urlopen(URL)
-        response = response.read()
-        data = json.loads(response)
+	# setting the url
+	URL = URL_STUB.format(dep_lat, dep_long, arr_lat, arr_long, time, app_id, app_code)
+	print(URL)
 
-        # getting just the routes
-        routes = data["Res"]["Connections"]["Connection"]
+	# getting data
+	response = request.urlopen(URL)
+	response = response.read()
+	data = json.loads(response)
 
-        #print(routes)
-        return routes
+	# getting just the routes
+	routes = data["Res"]["Connections"]["Connection"]
 
-    except:
-        return False
+	#print(routes)
+	return routes
 
 ########################################
 #####   START OF GETS FROM ROUTE   #####
@@ -280,14 +309,14 @@ to = "116th St & Broadway, New York, NY 10027"
 #
 # print ('---TESTING transit.py---')
 #
-print ('rou')
-rou = get_transit_info(now, to)
-# print (rou)
-#
-# print ('time')
-# print(get_total_time(rou[0]))
-print("\n Getting the directions to the first route: ")
-print(get_directions(rou[0]))
+# print ('rou')
+# rou = get_transit_info(now, to)
+# # print (rou)
+# #
+# # print ('time')
+# # print(get_total_time(rou[0]))
+# print("\n Getting the directions to the first route: ")
+# print(get_directions(rou[0]))
 
 # print(x)
 # get_rev_geo(x["lat"], x["lng"])

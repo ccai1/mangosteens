@@ -8,12 +8,15 @@
 
     <b>Routes:</b><br><br>
 
+    <form action="/play" method="POST">
+
     {% if mode == "Public Transit" %}
 
-      <form action="/play" method="POST">
+
         {% for route in routes %}
 
-          Total time: {{route['time']}}
+          Your travel time is {{route['time']}}
+          <button type="submit" class="btn btn-danger btn-sm float-right" name="route" value={{route}}>Choose</button><br>
 
           <ol>
             {% for direction in route['directions'] %}
@@ -22,21 +25,21 @@
           </ol><br>
         {% endfor %}
 
-      </form>
 
     {% else %}
+        Your travel time is {{time}}<br>
 
-      Your travel time is {{time}}<br>
+          <button type="submit" class="btn btn-danger btn-sm float-right" name="time" value={{time}}>Choose</button><br>
 
-      <form action="/play" method="POST">
-      <ol>
-        {% for route in routes %}
-          <li>{{route}}</li>
-        {% endfor %}
-      </ol>
-      </form>
+          <ol>
+              {% for route in routes %}
+                <li>{{route}}</li>
+              {% endfor %}
 
+          </ol>
     {% endif %}
+
+    </form>
 
     <!-- <div class="row">
       <div class="col-sm">

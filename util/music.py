@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("../data/keys.json") as f:
+with open("data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -9,7 +9,7 @@ key = api_keys["tracks_key"]
 '''
 Returns the data for other methods
 Params include artist and track name
-    ex: (Alan Walker, Faded) 
+    ex: (Alan Walker, Faded)
 '''
 def get_track_info(artist, track):
     URL_STUB = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo"
@@ -22,15 +22,15 @@ def get_track_info(artist, track):
     return data
 
 '''
-Returns duration of the track 
+Returns duration of the track
 '''
 def get_track_duration(data):
     return data["track"]["duration"]
 
 '''
-Get a certain number of top tracks on chart 
+Get a certain number of top tracks on chart
 Returns a list of artist + track name:
-    ex: get_top_tracks(2) 
+    ex: get_top_tracks(2)
     [['Ariana Grande', 'Thank U, Next'], ['Queen', 'Bohemian Rhapsody - Remastered 2011']]
 '''
 def get_top_tracks(num):
@@ -65,5 +65,8 @@ def get_tracks(tag, num):
         track_list.append([artist, track_name])
     return track_list
 
-print(get_top_tracks(5))    
+print(get_top_tracks(5))
 print(get_tracks("edm", 3))
+
+def find_playlist (time, mood = None, genre = None, artist = None):
+    return time
