@@ -154,3 +154,8 @@ fabihaT -- 2018-12-04 11:17
 -Added comments to transit.py
 -Fixed bugs in transit.py
 ==============================================================
+angelaT -- 2018-12-04 2:47
+--------------------------------------------------------------
+-Added getting a certain number of top tracks on top charts and by tags
+-Commented music.py
+==============================================================
