@@ -2,7 +2,7 @@ import json
 from urllib import request, parse
 
 # api authentication
-with open("data/keys.json") as f:
+with open("../data/keys.json") as f:
 	api_keys = json.load(f)
 
 KEY = api_keys["routes_key"]
@@ -35,10 +35,10 @@ def fix_address(address):
     return fixed
 
 '''
-Returns realtime commute time
+Returns commute time
 '''
 def get_time(data):
-    return data['route']['formattedTime']
+    return data['route']['time']
 
 '''
 Returns distance of the route
@@ -77,4 +77,4 @@ print(get_directions(getDirectionsInfo("345 Chambers St, New York, NY 10282","27
 start = "345 Chambers St, New York, NY 10282"
 end = "128 Chambers St station New York NY 10007-1002"
 
-print(get_directions(getDirectionsInfo(start, end, "pedestrian")))
+print(get_time(getDirectionsInfo(start, end, "pedestrian")))

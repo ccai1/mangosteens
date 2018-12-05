@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("data/keys.json") as f:
+with open("../data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -69,4 +69,5 @@ print(get_top_tracks(5))
 print(get_tracks("edm", 3))
 
 def find_playlist (time, mood = None, genre = None, artist = None):
+
     return time
