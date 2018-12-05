@@ -60,7 +60,11 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
         try except
 """
 def get_total_time(data):
-    return data["duration"][2:]
+
+    time = data["duration"][2:]
+    print ("---DATA IS---")
+    print (time)
+    return time
 
 """
     Returns the number of transfers for a single route
@@ -252,3 +256,5 @@ long = -74.009266
 get_rev_geo(lat, long)
 
 # print(get_total_time(rou[0]))
+
+get_rev_geo(x['lat'],x['lng'])

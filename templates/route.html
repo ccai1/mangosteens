@@ -3,32 +3,53 @@
   <div class="container">
     <h3>Results</h3><br>
 
-    Your commute time is: {{time}}<br>
     Distance: {{distance}} miles<br><br>
     <img src={{map[0]}} style="width:auto;"><br><br>
 
-    <b>Directions:</b><br><br>
+    <b>Routes:</b><br><br>
 
-    <form action="/play" method="POST">
+    {% if mode == "Public Transit" %}
 
-    <ol>
-      {% for route in routes %}
-        <li>{{route}}</li>
-        <!-- <div class="row">
-          <div class="col-sm">
-            A, C, E transfer to the F
-          </div>
-          <div class="col-sm text-center">
-            45 min.
-          </div>
-          <div class="col-sm">
-            <button type="submit" class="btn btn-danger btn-sm float-right" name="route" value="{route}">Play</button><br>
-          </div>
-        </div> -->
-      {% endfor %}
-    </ol>
-    </form>
+      <form action="/play" method="POST">
+        {% for route in routes %}
 
-    <center><br><br><a href = '/home'><input type = "button" class="btn btn-dark btn-sm" value="Back"></input></a></center>
+          Total time: {{route['time']}}
+
+          <ol>
+            {% for direction in route['directions'] %}
+              <li>{{direction['dir']}} ({{direction['time']}})</li>
+            {% endfor %}
+          </ol><br>
+        {% endfor %}
+
+      </form>
+
+    {% else %}
+
+      Your travel time is {{time}}<br>
+
+      <form action="/play" method="POST">
+      <ol>
+        {% for route in routes %}
+          <li>{{route}}</li>
+        {% endfor %}
+      </ol>
+      </form>
+
+    {% endif %}
+
+    <!-- <div class="row">
+      <div class="col-sm">
+        A, C, E transfer to the F
+      </div>
+      <div class="col-sm text-center">
+        45 min.
+      </div>
+      <div class="col-sm">
+        <button type="submit" class="btn btn-danger btn-sm float-right" name="route" value="{route}">Play</button><br>
+      </div>
+    </div> -->
+
+    <center><br><br><a href = '/'><input type = "button" class="btn btn-dark btn-sm" value="Back"></input></a></center>
   </div>
 {% endblock content %}
