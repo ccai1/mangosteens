@@ -2,6 +2,8 @@ import json
 from urllib import request, parse
 from datetime import datetime
 
+from util import routes
+
 # api authentication
 with open("data/keys.json") as f:
 	api_keys = json.load(f)
@@ -167,7 +169,7 @@ def get_directions(data):
 
             # print("Starting address: " + start)
             # print("Ending address: " + end)
-            walking = ro.get_directions(ro.getDirectionsInfo(start, end, "pedestrian"))
+            walking = routes.get_directions(routes.getDirectionsInfo(start, end, "pedestrian"))
             # print(walking)
 
             dir = ""
@@ -186,7 +188,6 @@ def get_directions(data):
             dest = step["Arr"]["Stn"]["name"] + " station"
 
             dir = dir.format(transit_name, transit_type, towards, num_stops, dest)
-
 
         dicts["dir"] = dir
         ret.append(dicts)

@@ -135,7 +135,9 @@ def route():
 @app.route('/play', methods=['POST', 'GET'])
 def play():
     '''runs the song algorithm'''
-    time = request.form.get('time')
+    time = request.form.get('route')
+    print ('---PLAY IS CALLED---')
+    print (time)
     playlist = music.find_playlist(time)
     return render_template('play.html',
                             playlist = playlist
