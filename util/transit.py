@@ -3,6 +3,12 @@ from urllib import request, parse
 from datetime import datetime
 
 import routes as ro
+# api authentication
+with open("../data/keys.json") as f:
+	api_keys = json.load(f)
+
+app_id = api_keys["transit_id"]
+app_code = api_keys["transit_code"]
 
 """
     Gets the data of the directions to the desired location
@@ -31,11 +37,7 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
         # current time + 5 minutes
         time = curr_time()
 
-        # api authentication
-        app_id = "3yvzQG60zJIScGOHeEVK"
-        app_code = "51NmvNiDfNtVqKmYgKBaMg"
-
-        # setting the url
+		# setting the url
         URL = URL_STUB.format(dep_lat, dep_long, arr_lat, arr_long, time, app_id, app_code)
         # print(URL)
 

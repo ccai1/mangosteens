@@ -140,3 +140,9 @@ cathyC -- 2018-12-04 8:52
 --------------------------------------------------------------
 -Finished adding all routing algorithms to app.py
 ==============================================================
+angelaT -- 2018-12-04 10:50
+--------------------------------------------------------------
+-Stopped working on spotify.py (auth token and header functional for backup purposes)
+-Fixed bugs with all keys
+-Started working on last.fm api (obtaining track info) 
+==============================================================
