@@ -99,8 +99,8 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
         try except
 """
 def get_total_time(data):
-    time = data["duration"][2:]
-
+    time = data["duration"][2:-1]
+    time += " minutes"
     print ("---DATA IS---")
     print (time)
     return time
@@ -311,11 +311,11 @@ to = "116th St & Broadway, New York, NY 10027"
 # print ('---TESTING transit.py---')
 #
 # print ('rou')
-# rou = get_transit_info(now, to)
+rou = get_transit_info(now, to)
 # # print (rou)
 # #
-# # print ('time')
-# # print(get_total_time(rou[0]))
+print ('time')
+print(get_total_time(rou[0]))
 # print("\n Getting the directions to the first route: ")
 # print(get_directions(rou[0]))
 
