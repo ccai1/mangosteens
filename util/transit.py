@@ -2,6 +2,8 @@ import json
 from urllib import request, parse
 from datetime import datetime
 
+import routes as ro
+
 """
     Gets the data of the directions to the desired location
     Returns a list of possible routes
@@ -33,17 +35,23 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
         app_id = "3yvzQG60zJIScGOHeEVK"
         app_code = "51NmvNiDfNtVqKmYgKBaMg"
 
+        # setting the url
         URL = URL_STUB.format(dep_lat, dep_long, arr_lat, arr_long, time, app_id, app_code)
-        print(URL)
+        # print(URL)
 
+        # getting data
         response = request.urlopen(URL)
         response = response.read()
         data = json.loads(response)
 
+        # getting just the routes
         routes = data["Res"]["Connections"]["Connection"]
 
         #print(routes)
         return routes
+            walking = ""
+            start = 0
+            end = 0
     except:
         return False
 
@@ -60,8 +68,8 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
         try except
 """
 def get_total_time(data):
-
     time = data["duration"][2:]
+
     print ("---DATA IS---")
     print (time)
     return time
@@ -80,6 +88,7 @@ def get_num_transfers(data):
 def get_directions(data):
     directions = data["Sections"]["Sec"]
 
+    # modes of transportation
     mode = {0 : "high speed train",
             1 : "intercity train",
             2 : "inter regional train",
@@ -104,13 +113,38 @@ def get_directions(data):
         dicts["time"] = step["Journey"]["duration"][2:] # time to complete single step
 
         if step["mode"] == 20:
-            to_lat = step["Arr"]["Stn"][""]
-            #####   WORKING ON ADDING DIRECTIONS FOR WALKING TO STATIONS 
+
+            # get the starting address either from a station or a place
+            if "Addr" in step["Dep"].keys():
+                to_lat = step["Dep"]["Addr"]["y"]
+                to_lng = step["Dep"]["Addr"]["x"]
+
+            if "Stn" in step["Dep"].keys():
+                to_lat = step["Dep"]["Stn"]["y"]
+                to_lng = step["Dep"]["Stn"]["x"]
+
+            start = get_rev_geo(to_lat, to_lng)
+
+            # get the destination address either from a station or a place
+            if "Addr" in step["Arr"].keys():
+                to_lat = step["Arr"]["Addr"]["y"]
+                to_lng = step["Arr"]["Addr"]["x"]
 
             if "Stn" in step["Arr"].keys():
-                dir += step["Arr"]["Stn"]["name"] + " station."
-            else:
-                dir += "destination."
+                to_lat = step["Arr"]["Stn"]["y"]
+                to_lng = step["Arr"]["Stn"]["x"]
+
+            end = get_rev_geo(to_lat, to_lng)
+
+            # print("Starting address: " + start)
+            # print("Ending address: " + end)
+            walking = ro.get_directions(ro.getDirectionsInfo(start, end, "pedestrian"))
+            # print(walking)
+
+            dir = ""
+            for i in walking:
+                dir += i + " "
+
         else:
 
             dir = "Take the {} {} headed towards {} for {} stops. Get off at {}."
@@ -166,6 +200,15 @@ def get_geo(place):
 
     return geo_code
 
+"""
+    Acquire the geocode of any address
+    Parameter: lat -> latitude
+               long -> longitude
+
+    To-do:
+        Check to make sure an incorrect latitude or longitude isn't entered
+        if it is then soemthing should be returned.
+"""
 def get_rev_geo(lat, long):
     URL_STUB = "http://www.mapquestapi.com/geocoding/v1/reverse?key={}&location={},{}"
 
@@ -250,11 +293,11 @@ print(get_directions(rou[0]))
 # get_rev_geo(x["lat"], x["lng"])
 # get_rev_geo(y["lat"], y["lng"])
 
-lat = 40.715478
-long = -74.009266
-
-get_rev_geo(lat, long)
+# lat = 40.715478
+# long = -74.009266
+#
+# get_rev_geo(lat, long)
 
 # print(get_total_time(rou[0]))
 
-get_rev_geo(x['lat'],x['lng'])
+# get_rev_geo(lat, long)

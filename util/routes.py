@@ -72,5 +72,4 @@ print(get_directions(getDirectionsInfo("345 Chambers St, New York, NY 10282","27
 start = "345 Chambers St, New York, NY 10282"
 end = "128 Chambers St station New York NY 10007-1002"
 
-
 print(get_directions(getDirectionsInfo(start, end, "pedestrian")))
