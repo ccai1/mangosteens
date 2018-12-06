@@ -5,7 +5,7 @@ from datetime import datetime
 from util import routes
 
 # api authentication
-with open("../data/keys.json") as f:
+with open("data/keys.json") as f:
 	api_keys = json.load(f)
 
 app_id = api_keys["transit_id"]
@@ -141,7 +141,7 @@ def get_directions(data):
 
     for step in directions:
         dicts = {}
-        dicts["time"] = step["Journey"]["duration"][2:] # time to complete single step
+        dicts["time"] = step["Journey"]["duration"][2:-1] + " minutes"# time to complete single step
 
         if step["mode"] == 20:
 
