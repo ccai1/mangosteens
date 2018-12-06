@@ -60,10 +60,10 @@ def fix_track_list(track_list):
         artist = track[0]
         name = track[1]
         try:
-            if get_track_duration(get_track_info(artist, name)) != 0: 
+            if get_track_duration(get_track_info(artist, name)) != 0:
                 tracks.append(track)
         except:
-            print("Fixed") # Does not add the defective track
+            # print("Fixed") # Does not add the defective track
             '''
     for track in range(len(tracks)):
         artist = track[0]
@@ -89,7 +89,7 @@ def get_tracks(tag, num):
         artist = track_data["artist"]["name"]
         track_name = track_data["name"]
         track_list.append([artist, track_name])
-    track_list = fix_track_list(track_list) # first fix 
+    track_list = fix_track_list(track_list) # first fix
     return track_list
 
 

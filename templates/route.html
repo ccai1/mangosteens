@@ -1,14 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="container">
+
+    <form action="/play" method="POST">
+
+    <h3>Playlist Preferences</h3><br>
+
+    Please fill out at least one of the boxes below:<br><br>
+
+    <div class="form-group">
+      <label for="tags">Comma-Separated Tags:</label>
+      <input type="text" class="form-control" id="tags" name="tags">
+    </div>
+
+    <div class="form-group">
+      <label for="artist">Artist:</label>
+      <input type="text" class="form-control" name="artist">
+    </div>
+
+    <b>Top Charts:</b> "{{top_hit[0][1]}}" by {{top_hit[0][0]}}<br><br>
+
     <h3>Results</h3><br>
 
-    Distance: {{distance}} miles<br><br>
+    <b>Distance:</b> {{distance}} miles<br><br>
     <img src={{map[0]}} style="width:auto;"><br><br>
 
     <b>Routes:</b><br><br>
-
-    <form action="/play" method="POST">
 
     {% if mode == "Public Transit" %}
 
@@ -37,6 +54,8 @@
 
           </ol>
     {% endif %}
+
+    <br><br>
 
     </form>
 
