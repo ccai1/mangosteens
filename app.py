@@ -17,7 +17,7 @@ def home():
     if 'user' in session:
         #if there is then just show the welcome screen
         return render_template('welcome.html',
-                                user=session['user'])
+                               user=session['user'])
     else:
         #if not just ask for info
         return render_template('home.html')
@@ -39,7 +39,7 @@ def login():
         else:
             flash("Wrong password!")
             return render_template('home.html')
-    flash("Wrong username!")
+        flash("Wrong username!")
     return redirect(url_for('home'))
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -99,32 +99,7 @@ def route():
 
             route = routes.get_directions(info)
             time = routes.get_time(info)
-            hour = str(time // 3600)
-            minute = str((time % 3600) // 60)
-            second = str(time % 60)
-            if hour == '0':
-                hour = ""
-            elif hour == '1':
-                hour += " hour "
-            else:
-                hour += " hours "
-
-            if minute == '0':
-                minute = ""
-            elif minute == '1':
-                minute += " minute and "
-            else:
-                minute += " minutes and "
-
-            if second == '0':
-                second = ""
-                minute.replace(" and ", "")
-            elif second == '1':
-                second += " second "
-            else:
-                second += " seconds "
-
-            time = hour + minute + second
+            time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
 
             # print ("-----ROUTE INFO-----")
             # print (info)
@@ -151,12 +126,12 @@ def route():
         # print (route)
 
         return render_template('route.html',
-                                mode=mode,
-                                time=time,
-                                distance=distance,
-                                map=map,
-                                routes=route,
-                                top_hit = top_hit)
+                               mode=mode,
+                               time=time,
+                               distance=distance,
+                               map=map,
+                               routes=route,
+                               top_hit = top_hit)
     else:
         flash("Please fill in all address forms.")
         return redirect(url_for('home'))
@@ -175,10 +150,10 @@ def play():
 
     print ('---PLAY IS CALLED---')
     print (transit_time)
-    
+
     playlist = music.gen_playlist(time, tags)
     return render_template('play.html',
-                            playlist = playlist
+                           playlist = playlist
     )
 
 # Consider: Do we need an edit page?
@@ -188,11 +163,11 @@ def edit():
     '''displays the playlist with options to delete, select, and shuffle'''
     # playlist = request.form['playlist']
 
-    playlist = {1: {'SongTitle': 'Rise', 'Artist': 'Jonas Blue', 'Minutes': '3.25'}, 2: {'SongTitle': 'Never Enough', 'Artist': 'Loren Allred', 'Minutes': '3.5'}}
-    length = len(playlist)
+    playlist = {1: {'SongTitle': 'Rise', 'Artist': 'Jonas Blue', 'Minutes': 3.25}, 2: {'SongTitle': 'Never Enough', 'Artist': 'Loren Allred', 'Minutes': 3.5}}
+    length = len(playlist) + 1
     # getting songs and to display
-    return render_template('edit.html', playlist = playlist, length = length -1)
-    # return redirect(url_for('play'))
+    return render_template('edit.html', playlist = playlist, length = length)
+# return redirect(url_for('play'))
 
 @app.route('/logout')
 def logout():

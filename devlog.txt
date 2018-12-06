@@ -179,3 +179,8 @@ cathyC -- 2018-12-05 23:43
 -Changed formatting
 -Half linked song algorithm to route
 ==============================================================
+stefanT -- 2018-12-06 00:02
+--------------------------------------------------------------
+-Added edit route in app.py
+-Added edit.html to display playlist
+==============================================================
