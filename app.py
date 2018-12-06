@@ -52,9 +52,12 @@ def register():
     if username.find("'") == -1:
             if password == pwdCopy:
                 # db_edit.insert('users', [username, sha256_crypt.encrypt(password), ""])
-                db_edit.insert('users', [username, '', sha256_crypt.encrypt(password)])
-                '''insert username and password into database'''
-                flash("Registration complete! Please re-enter your login info.");
+                try:
+                    db_edit.insert('users', [username, '', sha256_crypt.encrypt(password)])
+                    '''insert username and password into database'''
+                    flash("Registration complete! Please re-enter your login info.");
+                except:
+                    flash("That username is taken. Please input a different one.");
             else:
                 flash('Passwords do not match.')
     else:
@@ -95,7 +98,32 @@ def route():
                 info = routes.getDirectionsInfo(start, destination, "driving")
             route = routes.get_directions(info)
             time = routes.get_time(info)
-            time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
+            hour = str(time // 3600)
+            minute = str((time % 3600) // 60)
+            second = str(time % 60)
+            if hour == '0':
+                hour = ""
+            elif hour == '1':
+                hour += " hour "
+            else:
+                hour += " hours "
+
+            if minute == '0':
+                minute = ""
+            elif minute == '1':
+                minute += " minute and "
+            else:
+                minute += " minutes and "
+
+            if second == '0':
+                second = ""
+                minute.replace(" and ", "")
+            elif second == '1':
+                second += " second "
+            else:
+                second += " seconds "
+
+            time = hour + minute + second
 
             # print ("-----ROUTE INFO-----")
             # print (info)

@@ -100,9 +100,29 @@ def get_transit_info(location, destination): # hide key, vars for start/end addr
 """
 def get_total_time(data):
     time = data["duration"][2:-1]
-    time += " minutes"
-    print ("---DATA IS---")
-    print (time)
+
+    if len(time) == 5:
+
+        if time[0] == '0':
+
+            if time[3] == '0':
+                time = time[1:2] + " hours and " + time[4:] + " minutes"
+            elif time[1] == '1':
+                time = time[1:2] + " hour and " + time[4:] + " minutes"
+            else:
+                time = time[1:2] + " hours and " + time[3:] + " minutes"
+
+        else:
+
+            if time[3] == '0':
+                time = time[0:2] + " hours and " + time[4:] + " minutes"
+            elif time[1] == '1':
+                time = time[0:2] + " hour and " + time[4:] + " minutes"
+            else:
+                time = time[0:2] + " hours and " + time[3:] + " minutes"
+    # time += " minutes"
+    # print ("---DATA IS---")
+    # print (time)
     return time
 
 """
@@ -140,8 +160,20 @@ def get_directions(data):
     ret = []
 
     for step in directions:
+
         dicts = {}
-        dicts["time"] = step["Journey"]["duration"][2:-1] + " minutes"# time to complete single step
+
+        time = step["Journey"]["duration"][2:-1]
+        if time[0] == '0':
+
+            if time[1] == '1':
+                dicts["time"] = time[1:]  + " minute" # time to complete single step
+            else:
+                dicts["time"] = time[1:]  + " minutes"
+
+        else:
+
+            dicts["time"] = time + " minutes"
 
         if step["mode"] == 20:
 
