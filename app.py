@@ -186,9 +186,12 @@ def play():
 def edit():
     '''displays the playlist with options to delete, select, and shuffle'''
     # playlist = request.form['playlist']
+    
+    playlist = {1: {'SongTitle': 'Rise', 'Artist': 'Jonas Blue', 'Minutes': '3.25'}, 2: {'SongTitle': 'Never Enough', 'Artist': 'Loren Allred', 'Minutes': '3.5'}}
+    length = len(playlist)
     # getting songs and to display
-    # return render_template('edit.html')
-    return redirect(url_for('play'))
+    return render_template('edit.html', playlist = playlist, length = length -1)
+    # return redirect(url_for('play'))
 
 @app.route('/logout')
 def logout():
