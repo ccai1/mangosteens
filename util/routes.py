@@ -72,9 +72,9 @@ def get_directions(data):
         directions.append(direction)
     return directions
 
-print(get_directions(getDirectionsInfo("345 Chambers St, New York, NY 10282","270 Greenwich St, New York","pedestrian")))
+# print(get_directions(getDirectionsInfo("345 Chambers St, New York, NY 10282","270 Greenwich St, New York","pedestrian")))
 
 start = "345 Chambers St, New York, NY 10282"
 end = "128 Chambers St station New York NY 10007-1002"
 
-print(get_time(getDirectionsInfo(start, end, "pedestrian")))
+# print(get_time(getDirectionsInfo(start, end, "pedestrian")))

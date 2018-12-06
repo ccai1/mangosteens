@@ -120,6 +120,13 @@ def get_total_time(data):
                 time = time[0:2] + " hour and " + time[4:] + " minutes"
             else:
                 time = time[0:2] + " hours and " + time[3:] + " minutes"
+    else:
+
+        if time[0] == '0':
+            time = time[1:] + 'minutes'
+        else:
+            time = time + 'minutes'
+
     # time += " minutes"
     # print ("---DATA IS---")
     # print (time)
@@ -258,7 +265,7 @@ def get_geo(place):
     #print(data)
 
     geo_code = data["results"][0]["locations"][0]["latLng"]
-    print(geo_code)
+    # print(geo_code)
 
     return geo_code
 
@@ -290,7 +297,7 @@ def get_rev_geo(lat, long):
     address += my_data["adminArea5"] + ' '
     address += my_data["adminArea3"] + ' '
     address += my_data["postalCode"]
-    print(address)
+    # print(address)
 
     return address
 
@@ -330,7 +337,7 @@ def curr_time():
 
     time = time.format(hour, minute)
 
-    print(time)
+    # print(time)
     return time
 
 
@@ -343,11 +350,11 @@ to = "116th St & Broadway, New York, NY 10027"
 # print ('---TESTING transit.py---')
 #
 # print ('rou')
-rou = get_transit_info(now, to)
+# rou = get_transit_info(now, to)
 # # print (rou)
 # #
-print ('time')
-print(get_total_time(rou[0]))
+# print ('time')
+# print(get_total_time(rou[0]))
 # print("\n Getting the directions to the first route: ")
 # print(get_directions(rou[0]))
 

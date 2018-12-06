@@ -6,67 +6,42 @@
 
 {% block content %}
 <div class="container">
+  <center><h3>Find a customized song playlist to fit your commute:</h3></center><br>
 
-  <h3>Find a customized Spotify playlist to fit your commute:</h3><br>
+  <div id="login-row" class="row justify-content-center align-items-center">
+    <div id="welcome-column" class="col-md-6">
 
-  {% set msgs = get_flashed_messages()%}
-  {% for each in msgs %}
-    <i class="text-danger">{{each}}</i><br><br>
-  {% endfor %}
 
-  <form action="/route" method="POST">
-    <div class="form-group">
-      <label for="start">Starting Address:</label>
-      <input type="text" class="form-control" id="start" name="start">
+
+      {% set msgs = get_flashed_messages()%}
+      {% for each in msgs %}
+        <i class="text-danger">{{each}}</i><br><br>
+      {% endfor %}
+
+      <form action="/route" method="POST">
+        <div class="form-group">
+          <label for="start">Starting Address:</label>
+          <input type="text" class="form-control" id="start" name="start">
+        </div>
+        <div class="form-group">
+          <label for="destination">Destination:</label>
+          <input type="text" class="form-control" name="destination">
+        </div>
+
+        <div class="form-group">
+          <label for="mode">Transportation Mode:</label>
+          <select class="form-control" name="mode">
+            <option>Walking</option>
+            <option>Driving</option>
+            <option>Bicycle</option>
+            <option>Public Transit</option>
+          </select>
+        </div><br>
+
+        <button type="submit" class="btn btn-outline-danger">Submit</button>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="destination">Destination:</label>
-      <input type="text" class="form-control" name="destination">
-    </div>
-
-    <div class="form-group">
-      <label for="mode">Transportation Mode:</label>
-      <select class="form-control" name="mode">
-        <option>Walking</option>
-        <option>Driving</option>
-        <option>Bicycle</option>
-        <option>Public Transit</option>
-      </select>
-    </div>
-
-    <br><br>
-
-    (Optional)<br>
-    <div class="form-group">
-      <label for="mood">Mood:</label>
-      <select class="form-control" name="mood">
-      	<option>Happy</option>
-      	<option>Calm</option>
-      	<option>Energetic</option>
-      	<option>Depressing</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="genre">Genre:</label>
-      <select class="form-control" name="genre">
-      	<option>Holidays</option>
-      	<option>Pop</option>
-      	<option>Country</option>
-      	<option>Classical</option>
-      	<option>Dance</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="artist">Artist:</label>
-      <input type="text" class="form-control" name="artist">
-    </div>
-
-    <b>Top Charts:</b> "{{top_hit[0][1]}}" by {{top_hit[0][0]}}<br><br>
-
-    <button type="submit" class="btn btn-outline-danger">Submit</button>
-  </form>
+  </div>
 
 {% endblock content %}
 <!--  <b>Mood:</b>
@@ -98,6 +73,25 @@
 <b> Saved playlists? </b><br>
 <a href="/view_playlists">Click here to view them</a>
 
+<!-- <div class="form-group">
+  <label for="mood">Mood:</label>
+  <select class="form-control" name="mood">
+    <option>Happy</option>
+    <option>Calm</option>
+    <option>Energetic</option>
+    <option>Depressing</option>
+  </select>
+</div>
 
--->
+<div class="form-group">
+  <label for="genre">Genre:</label>
+  <select class="form-control" name="genre">
+    <option>Holidays</option>
+    <option>Pop</option>
+    <option>Country</option>
+    <option>Classical</option>
+    <option>Dance</option>
+  </select>
+</div> -->
+
 </div>
