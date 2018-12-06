@@ -102,34 +102,40 @@ def get_total_time(data):
     time = data["duration"][2:-1]
 
     if len(time) == 5:
-
-        if time[0] == '0':
-
-            if time[3] == '0':
-                time = time[1:2] + " hours and " + time[4:] + " minutes"
-            elif time[1] == '1':
-                time = time[1:2] + " hour and " + time[4:] + " minutes"
-            else:
-                time = time[1:2] + " hours and " + time[3:] + " minutes"
-
-        else:
-
-            if time[3] == '0':
-                time = time[0:2] + " hours and " + time[4:] + " minutes"
-            elif time[1] == '1':
-                time = time[0:2] + " hour and " + time[4:] + " minutes"
-            else:
-                time = time[0:2] + " hours and " + time[3:] + " minutes"
+        time = int(time[0:2]) * 3600 + int(time[3:5]) * 60
     else:
+        time = int(time[0:2]) * 60
 
-        if time[0] == '0':
-            time = time[1:] + 'minutes'
-        else:
-            time = time + 'minutes'
+    # if len(time) == 5:
+	#
+    #     if time[0] == '0':
+	#
+    #         if time[3] == '0':
+    #             time = time[1:2] + " hours and " + time[4:] + " minutes"
+    #         elif time[1] == '1':
+    #             time = time[1:2] + " hour and " + time[4:] + " minutes"
+    #         else:
+    #             time = time[1:2] + " hours and " + time[3:] + " minutes"
+	#
+    #     else:
+	#
+    #         if time[3] == '0':
+    #             time = time[0:2] + " hours and " + time[4:] + " minutes"
+    #         elif time[1] == '1':
+    #             time = time[0:2] + " hour and " + time[4:] + " minutes"
+    #         else:
+    #             time = time[0:2] + " hours and " + time[3:] + " minutes"
+    # else:
+	#
+    #     if time[0] == '0':
+    #         time = time[1:] + 'minutes'
+    #     else:
+    #         time = time + 'minutes'
 
     # time += " minutes"
     # print ("---DATA IS---")
     # print (time)
+
     return time
 
 """
@@ -332,9 +338,16 @@ def curr_time():
             hour = str(hour)
     else:
         hour = int(ti[0])
+        if hour // 10 == 0:
+            hour = '0' + str(hour)
+        print('---HOUR---')
+        print (hour)
 
     minute = (int(ti[1]) + 5) % 60
-
+    # print('---MINUTE---')
+    # print (minute)
+    if minute // 10 == 0:
+        minute = '0' + str(minute)
     time = time.format(hour, minute)
 
     # print(time)

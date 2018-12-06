@@ -95,11 +95,11 @@ def route():
             elif mode == "Bicycle":
                 info = routes.getDirectionsInfo(start, destination, "bicycle")
             else:
-                info = routes.getDirectionsInfo(start, destination, "driving")
+                info = routes.getDirectionsInfo(start, destination, "shortest")
 
             route = routes.get_directions(info)
             time = routes.get_time(info)
-            time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
+            # time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
 
             # print ("-----ROUTE INFO-----")
             # print (info)
@@ -115,6 +115,8 @@ def route():
 
                 #per route found
                 one_route = {}
+
+                #in seconds
 
                 time = transit.get_total_time(info[i])
                 directions = transit.get_directions(info[i])
@@ -147,16 +149,13 @@ def play():
     transit_time = request.form.get('transit_length')
     route_time = request.form.get('route_length')
 
-
-    print ('---PLAY IS CALLED---')
-<<<<<<< HEAD
-    print (time)
+    # print ('---PLAY IS CALLED---')
+    # print (time)
     playlist = music.gen_playlist(route_time, tags)
-=======
-    print (transit_time)
+    # print (transit_time)
 
-    playlist = music.gen_playlist(time, tags)
->>>>>>> 82a1d24ec6cdbf5cee5f84745b74a2bb54a34dda
+    # playlist = music.gen_playlist(time, tags)
+
     return render_template('play.html',
                            playlist = playlist
     )

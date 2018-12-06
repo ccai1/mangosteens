@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("../data/keys.json") as f:
+with open("data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -268,7 +268,7 @@ def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
 
     #elif:
     #    return track_list
-''' 
+'''
     for x in range(num):
         track_data = tag1_data["tracks"]["track"][x]
         artist = track_data["artist"]["name"]
@@ -327,7 +327,7 @@ def gen_playlist (time, tag):
             if time - get_total_time(get_tracks(tag, num)) < 0:
                    track_list = fix_track_list(get_tracks(tag,num))
                    break
-    playlist = [] # adding URL to playlist 
+    playlist = [] # adding URL to playlist
     for track in track_list: # adds to wait time for generating playlists
         artist = track[0]
         track_name = track[1]
