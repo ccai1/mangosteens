@@ -164,3 +164,8 @@ angelaT -- 2018-12-05 16:19
 -Finished helper methods for creating playlist algorithm
 -Modified type of time returned in routes.py
 ==============================================================
+cathyC -- 2018-12-05 22:08
+--------------------------------------------------------------
+-Finished formatting time for routes and transit
+-Fixed registration bug
+==============================================================
