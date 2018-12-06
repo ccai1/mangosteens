@@ -94,7 +94,8 @@ def route():
 
             elif mode == "Bicycle":
                 info = routes.getDirectionsInfo(start, destination, "bicycle")
-
+            else:
+                info = routes.getDirectionsInfo(start, destination, "driving")
             route = routes.get_directions(info)
             time = routes.get_time(info)
             hour = str(time // 3600)
@@ -166,7 +167,7 @@ def play():
     time = request.form.get('route')
     print ('---PLAY IS CALLED---')
     print (time)
-    playlist = music.find_playlist(time)
+    playlist = music.gen_playlist(time)
     return render_template('play.html',
                             playlist = playlist
     )
