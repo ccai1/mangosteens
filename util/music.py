@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("../data/keys.json") as f:
+with open("data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
