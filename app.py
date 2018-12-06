@@ -144,13 +144,19 @@ def play():
     tags = request.form.get('tags')
     artist = request.form.get('artist')
 
-    transit_time = request.form.get('route')
-    route_time = request.form.get('time')
+    transit_time = request.form.get('transit_length')
+    route_time = request.form.get('route_length')
 
 
     print ('---PLAY IS CALLED---')
+<<<<<<< HEAD
     print (time)
     playlist = music.gen_playlist(route_time, tags)
+=======
+    print (transit_time)
+
+    playlist = music.gen_playlist(time, tags)
+>>>>>>> 82a1d24ec6cdbf5cee5f84745b74a2bb54a34dda
     return render_template('play.html',
                            playlist = playlist
     )
@@ -161,7 +167,7 @@ def play():
 def edit():
     '''displays the playlist with options to delete, select, and shuffle'''
     # playlist = request.form['playlist']
-    
+
     playlist = {1: {'SongTitle': 'Rise', 'Artist': 'Jonas Blue', 'Minutes': 3.25}, 2: {'SongTitle': 'Never Enough', 'Artist': 'Loren Allred', 'Minutes': 3.5}}
     length = len(playlist) + 1
     # getting songs and to display

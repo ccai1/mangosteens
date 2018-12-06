@@ -33,7 +33,7 @@
         {% for route in routes %}
 
           Your travel time is {{route['time']}}
-          <button type="submit" class="btn btn-danger btn-sm float-right" name="route" value={{route}}>Choose</button><br>
+          <button type="submit" class="btn btn-danger btn-sm float-right" name="transit_length" value={{route['time']}}>Choose</button><br>
 
           <ol>
             {% for direction in route['directions'] %}
@@ -45,7 +45,7 @@
     {% else %}
         Your travel time is {{time}}:<br>
 
-          <button type="submit" class="btn btn-danger btn-sm float-right" name="time" value={{time}}>Choose</button><br>
+          <button type="submit" class="btn btn-danger btn-sm float-right" name="route_length" value={{time}}>Choose</button><br>
 
           <ol>
               {% for route in routes %}
