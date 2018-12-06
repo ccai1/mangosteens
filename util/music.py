@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("data/keys.json") as f:
+with open("../data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -313,10 +313,10 @@ def get_total_time(track_list):
 The playlist maker method according to time
 Returns a track list as per the tags or top charts if tags are not giving that will add up to total time
 '''
-def gen_playlist (time, tag):
+def gen_playlist (time, tag0, tag1, tag2):
     track_list = []
     # NO tags given (top chart based)
-    if (tag == "None"):
+    if (tag0 == "None" and tag1 =="None" and tag2 == "None"):
         for num in range(1,50): # 50 searches per page max
             if time - get_total_time(get_top_tracks(num)) < 0:
                 track_list = fix_track_list(get_top_tracks(num)) # triple checking for broken tracks
@@ -324,8 +324,8 @@ def gen_playlist (time, tag):
     else:
         # tags given
         for num in range(1,50):
-            if time - get_total_time(get_tracks(tag, num)) < 0:
-                   track_list = fix_track_list(get_tracks(tag,num))
+            if time - get_total_time(get_tracks_tagged(tag0, tag1, tag2, num)) < 0:
+                   track_list = fix_track_list(get_tracks_tagged(tag0, tag1, tag2,num))
                    break
     playlist = [] # adding URL to playlist
     for track in track_list: # adds to wait time for generating playlists
@@ -335,6 +335,7 @@ def gen_playlist (time, tag):
         playlist.append([artist, track_name, track_url])
     return playlist
 
+print(gen_playlist(1000, "edm", "pop", "country"))
 
 '''
 print(get_total_time(get_top_tracks(3)))
