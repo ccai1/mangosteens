@@ -189,8 +189,13 @@ angelaT -- 2018-12-06 00:55
 -Added URLs to playlists
 -Added ability to get tracks with 1 to 3 tags
 ==============================================================
-cathyC -- 2018-12-06 8:31
+cathyC -- 2018-12-06 08:31
 --------------------------------------------------------------
 -Transit and route bug fixes
 -Converted all time to seconds for playlist to run
 ==============================================================
+fabihaT -- 2018-12-06 04:46
+--------------------------------------------------------------
+-Fixed transit bugs
+-Fixed obtaining playlist without tags
+-Fixed obtaining playlists with tags
