@@ -128,6 +128,7 @@ def route():
         # print (route)
 
         return render_template('route.html',
+                               user=session['user'],
                                mode=mode,
                                time=time,
                                distance=distance,
@@ -163,6 +164,7 @@ def play():
     # playlist = music.gen_playlist(time, tags)
 
     return render_template('play.html',
+                           user=session['user'],
                            playlist = playlist
     )
 
@@ -176,7 +178,10 @@ def edit():
     playlist = {1: {'SongTitle': 'Rise', 'Artist': 'Jonas Blue', 'Minutes': 3.25}, 2: {'SongTitle': 'Never Enough', 'Artist': 'Loren Allred', 'Minutes': 3.5}}
     length = len(playlist) + 1
     # getting songs and to display
-    return render_template('edit.html', playlist = playlist, length = length)
+    return render_template('edit.html',
+                            playlist = playlist,
+                            length = length,
+                            user=session['user'])
 # return redirect(url_for('play'))
 
 @app.route('/logout')

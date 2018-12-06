@@ -14,7 +14,22 @@
     {% block title %}
       <h1 class="display-3 text-center">Smapify</h1>
     {% endblock title %}
+
+    <div class="container">
+
+    <div id="nav">
+      <nav class="navbar float-top justify-content-center">
+        <a class="nav-link text-danger" href="/">Home</a>
+        <!-- <a class="nav-link text-warning" href="#grids">Grids</a>
+        <a class="nav-link text-info" href="#buttons">Buttons</a>
+        <a class="nav-link text-danger" href="#table">Tables</a>
+        <a class="nav-link text-warning" href="#other">Other</a> -->
+
+      </nav>
+    </div><br><br>
     {% block content %}{% endblock %}
+
+  </div>
 
     {% block footer %}
           <center><br><br><a href = '/logout'><input type = "button" class="btn btn-dark btn-sm" value="Logout"></input></a><br><br></center>
