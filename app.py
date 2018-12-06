@@ -126,6 +126,9 @@ def route():
 
         # print ("----TRANSIT ROUTES----")
         # print (route)
+        print("\n\n-----TOP HITS-----")
+        print(time)
+        print(top_hit)
 
         return render_template('route.html',
                                user=session['user'],

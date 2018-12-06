@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("../data/keys.json") as f:
+with open("data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -79,6 +79,24 @@ def fix_track_list(track_list):
             '''
     return tracks
 
+'''
+
+'''
+def fix_song(song):
+	if len(song) < 2:
+		print("song does not meet length criteria of function")
+		return False
+
+	artist = track[0]
+	name = track[1]
+
+	try:
+		info = get_track_info(artist, name)
+	except:
+		print("cannot access api")
+		return False
+
+	
 
 '''
 Get top tracks by tags
