@@ -1,34 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="container">
+<div class="container">
 
-    <h3>Your Info</h3><br>
+  <h3>Your Info</h3><br>
 
-    <b>Your route time:</b><br>
-    <!-- </b> 1 hr. 5 min.<br> -->
-    <b>Your route:</b><br>
-    <!-- 2, 3 transfer to the R<br><br> -->
+  <b>Your route time:</b><br>
+  <!-- </b> 1 hr. 5 min.<br> -->
+  <b>Your route:</b><br>
+  <!-- 2, 3 transfer to the R<br><br> -->
 
-    <!-- SMALL MAP HERE <br><br> -->
+  <!-- SMALL MAP HERE <br><br> -->
 
-    <b>Mood:</b> Depressing<br>
-    <b>Genre:</b> Pop<br><br>
+  <b>Mood:</b> Depressing<br>
+  <b>Genre:</b> Pop<br><br>
 
-    <hr>
+  <hr>
 
-    <form action="/edit" method = "POST">
+  <form action="/edit" method = "POST">
 
     <div class="row">
       <div class="col-sm">
         <h3>Our Playlist</h3>
       </div>
+      <table class="table table-hover table-dark">
+	<thead>
+	  <tr>
+	    <th scope="col">#</th>
+	    <th scope="col">Artist</th>
+	    <th scope="col">Song Title</th>
+	    <th scope="col">Link</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  {% for i in range(0, length) %}
+	  <tr>
+	    <th scope="row">{{ i + 1 }}</th>
+	    <td>{{ playlist[i][0] }}</td>
+	    <td>{{ playlist[i][1] }}</td>
+	    <td>{{ playlist[i][2] }}</td>
+	  </tr>
+	  {% endfor %}
+	</tbody>
+      </table>
       <div class="col-sm">
         <button type="submit" class="btn btn-info float-right" name="listen" value="{listen}">Play</button>
       </div>
     </div><br>
 
     <h5>Length of playlist<br>
-    Song count</h5><br>
+      Song count</h5><br>
 
     <!-- {% for song in playlist %} -->
     <!-- {% endfor %} -->
@@ -36,39 +56,39 @@
     <!-- put this in the loop of all the songs found  -->
 
 
-      {{playlist}}
-      <!-- <div class="row">
-        <div class="col-sm">
-          "consequences"
-        </div>
-        <div class="col-sm">
-          Camila Cabello
-        </div>
-        <div class="col-sm">
-          <button type="submit" class="btn btn-danger btn-sm float-right" name="delete" value="{delete}">Delete</button><br>
-        </div>
-        <div class="col-sm">
-          <button type="submit" class="btn btn-warning btn-sm float-right" name="saved" value="{save}">Save</button><br>
-        </div>
-      </div><br> -->
+    {{playlist}}
+    <!-- <div class="row">
+         <div class="col-sm">
+           "consequences"
+         </div>
+         <div class="col-sm">
+           Camila Cabello
+         </div>
+         <div class="col-sm">
+           <button type="submit" class="btn btn-danger btn-sm float-right" name="delete" value="{delete}">Delete</button><br>
+         </div>
+         <div class="col-sm">
+           <button type="submit" class="btn btn-warning btn-sm float-right" name="saved" value="{save}">Save</button><br>
+         </div>
+    </div><br> -->
 
-      <!-- <div class="row">
-        <div class="col-sm outline">
-          "Dying in LA"
-        </div>
-        <div class="col-sm">
-          Panic! At the Disco
-        </div>
-        <div class="col-sm">
-          <button type="submit" class="btn btn-danger btn-sm float-right" name="delete" value="{delete}">Delete</button><br>
-        </div>
-        <div class="col-sm">
-          <button type="submit" class="btn btn-warning btn-sm float-right" name="saved" value="{save}">Save</button><br>
-        </div>
-      </div><br><br> -->
+    <!-- <div class="row">
+         <div class="col-sm outline">
+           "Dying in LA"
+         </div>
+         <div class="col-sm">
+           Panic! At the Disco
+         </div>
+         <div class="col-sm">
+           <button type="submit" class="btn btn-danger btn-sm float-right" name="delete" value="{delete}">Delete</button><br>
+         </div>
+         <div class="col-sm">
+           <button type="submit" class="btn btn-warning btn-sm float-right" name="saved" value="{save}">Save</button><br>
+         </div>
+    </div><br><br> -->
 
-      <button type="submit" class="btn btn-primary btn-lg btn-block" name="shuffle" value="{shuffle}">Shuffle</button><br><br>
+    <button type="submit" class="btn btn-primary btn-lg btn-block" name="shuffle" value="{shuffle}">Shuffle</button><br><br>
 
-    </form>
+  </form>
 
-{% endblock content %}
+  {% endblock content %}

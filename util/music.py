@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("../data/keys.json") as f:
+with open("data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -109,6 +109,7 @@ Get top tracks from 1 to 3 tags regardless of order
     print(get_tracks_tagged("None", "None", "country", 3))
     print(get_tracks_tagged("None", "disco", "country", 3))
 '''
+
 def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
     track_list = []
     if tag0 != "None" and tag1 != "None" and tag2 != "None":
@@ -335,7 +336,7 @@ def gen_playlist (time, tag0, tag1, tag2):
         playlist.append([artist, track_name, track_url])
     return playlist
 
-print(gen_playlist(1000, "edm", "pop", "country"))
+#print(gen_playlist(1000, "edm", "pop", "country"))
 
 '''
 print(get_total_time(get_top_tracks(3)))
