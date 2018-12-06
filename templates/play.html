@@ -1,4 +1,34 @@
 {% extends "base.html" %}
+
+{% block navbar %}
+
+<div class="container">
+
+<div id="nav">
+  <div id="nav-row" class="row justify-content-center align-items-center">
+    <div id="nav-column" class="col-md-8">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">New</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/route">Route</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/route">Playlist</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/route">Listen</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div><div><br>
+
+{% endblock %}
 {% block content %}
   <div class="container">
 
