@@ -146,12 +146,18 @@ def play():
     tags = request.form.get('tags')
     artist = request.form.get('artist')
 
-    transit_time = request.form.get('transit_length')
-    route_time = request.form.get('route_length')
+    transit_length = request.form.get('transit_length')
+    route_length = request.form.get('route_length')
 
-    # print ('---PLAY IS CALLED---')
-    # print (time)
-    playlist = music.gen_playlist(route_time, tags)
+    if transit_length:
+        time = int(transit_length)
+    else:
+        time = int(route_length)
+
+    print ('---PLAY IS CALLED---')
+    print (type(time))
+    print (time)
+    playlist = music.gen_playlist(time, tags)
     # print (transit_time)
 
     # playlist = music.gen_playlist(time, tags)

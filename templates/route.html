@@ -32,7 +32,18 @@
 
         {% for route in routes %}
 
-          Your travel time is {{route['time']}}
+          Your travel time is
+
+          {% if (route['time']|int) // 3600 != 0 %}
+            {{(route['time']|int) // 3600}} hours,
+          {% endif %}
+          {% if (route['time']|int) % 3600 != 0 %}
+            {{((route['time']|int) % 3600) // 60}} minutes
+          {% endif %}
+          {% if (route['time']|int) % 60 != 0 %}
+            and {{(route['time']|int) % 60}} seconds
+          {% endif %}
+
           <button type="submit" class="btn btn-danger btn-sm float-right" name="transit_length" value={{route['time']}}>Choose</button><br>
 
           <ol>
@@ -43,7 +54,17 @@
         {% endfor %}
 
     {% else %}
-        Your travel time is {{time}}:<br>
+        Your travel time is
+
+        {% if (time|int) // 3600 != 0 %}
+          {{(time|int) // 3600}} hours,
+        {% endif %}
+        {% if (time|int) % 3600 != 0 %}
+          {{((time|int) % 3600) // 60}} minutes
+        {% endif %}
+        {% if (time|int) % 60 != 0 %}
+          and {{(time|int) % 60}} seconds
+        {% endif %}
 
           <button type="submit" class="btn btn-danger btn-sm float-right" name="route_length" value={{time}}>Choose</button><br>
 
