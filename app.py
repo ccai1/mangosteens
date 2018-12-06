@@ -52,12 +52,9 @@ def register():
     if username.find("'") == -1:
             if password == pwdCopy:
                 # db_edit.insert('users', [username, sha256_crypt.encrypt(password), ""])
-                try:
-                    db_edit.insert('users', [username, '', sha256_crypt.encrypt(password)])
-                    '''insert username and password into database'''
-                    flash("Registration complete! Please re-enter your login info.");
-                except:
-                    flash("That username is taken. Please input a different one.");
+                db_edit.insert('users', [username, '', sha256_crypt.encrypt(password)])
+                '''insert username and password into database'''
+                flash("Registration complete! Please re-enter your login info.");
             else:
                 flash('Passwords do not match.')
     else:
@@ -98,32 +95,7 @@ def route():
                 info = routes.getDirectionsInfo(start, destination, "driving")
             route = routes.get_directions(info)
             time = routes.get_time(info)
-            hour = str(time // 3600)
-            minute = str((time % 3600) // 60)
-            second = str(time % 60)
-            if hour == '0':
-                hour = ""
-            elif hour == '1':
-                hour += " hour "
-            else:
-                hour += " hours "
-
-            if minute == '0':
-                minute = ""
-            elif minute == '1':
-                minute += " minute and "
-            else:
-                minute += " minutes and "
-
-            if second == '0':
-                second = ""
-                minute.replace(" and ", "")
-            elif second == '1':
-                second += " second "
-            else:
-                second += " seconds "
-
-            time = hour + minute + second
+            time = time[3:5] + ' minutes and ' + time[7:9] + ' seconds'
 
             # print ("-----ROUTE INFO-----")
             # print (info)
@@ -179,10 +151,10 @@ def edit():
     '''displays the playlist with options to delete, select, and shuffle'''
     # playlist = request.form['playlist']
     
-    playlist = {1: {'SongTitle': 'Rise', 'Artist': 'Jonas Blue', 'Minutes': '3.25'}, 2: {'SongTitle': 'Never Enough', 'Artist': 'Loren Allred', 'Minutes': '3.5'}}
-    length = len(playlist)
+    playlist = {1: {'SongTitle': 'Rise', 'Artist': 'Jonas Blue', 'Minutes': 3.25}, 2: {'SongTitle': 'Never Enough', 'Artist': 'Loren Allred', 'Minutes': 3.5}}
+    length = len(playlist) + 1
     # getting songs and to display
-    return render_template('edit.html', playlist = playlist, length = length -1)
+    return render_template('edit.html', playlist = playlist, length = length)
     # return redirect(url_for('play'))
 
 @app.route('/logout')
