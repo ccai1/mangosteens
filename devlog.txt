@@ -184,3 +184,8 @@ stefanT -- 2018-12-06 00:02
 -Added edit route in app.py
 -Added edit.html to display playlist
 ==============================================================
+angelaT -- 2018-12-06 00:55
+--------------------------------------------------------------
+-Added URLs to playlists
+-Added ability to get tracks with 1 to 3 tags
+==============================================================

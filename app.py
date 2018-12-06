@@ -150,7 +150,7 @@ def play():
 
     print ('---PLAY IS CALLED---')
     print (time)
-    playlist = music.gen_playlist(time, tags)
+    playlist = music.gen_playlist(route_time, tags)
     return render_template('play.html',
                            playlist = playlist
     )
