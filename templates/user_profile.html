@@ -6,17 +6,24 @@
       <div id="nav-column" class="col-md-8">
         <h3>{{username}}</h3><br>
 
+        <h5>Playlist 1</h5><br>
+
             <table class="table table-hover table-light"><br>
               <thead>
                 <tr>
-                  <th scope="col">#</th>
                   <th scope="col">Artist</th>
                   <th scope="col">Song Title</th>
                   <th scope="col">Link</th>
                 </tr>
               </thead>
               <tbody>
-                {{playlists}}
+                {% for song in songs %}
+                <tr>
+                  <td>{{ song[4] }}</td>
+                  <td>{{ song[3] }}</td>
+                  <td>{{ song[2] }}</td>
+                </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>

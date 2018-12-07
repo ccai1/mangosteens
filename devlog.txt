@@ -214,3 +214,8 @@ cathyC -- 2018-12-06 11:33
 -Added profile and view playlist page
 -Added save playlists to playlist table
 ==============================================================
+cathyC -- 2018-12-07 02:49
+--------------------------------------------------------------
+-Finished saving playlist function
+-Allows user to view the playlists of other users
+==============================================================

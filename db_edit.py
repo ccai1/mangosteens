@@ -80,6 +80,11 @@ def delete(tableName, filterIndex, filterValue):
     c.execute(("DELETE FROM {0} WHERE {1} = '{2}'").format(tableName, filterIndex, filterValue))
     db.commit()
 
+def findLast(table, col):
+    print(("SELECT * FROM {0} WHERE {1} = (SELECT MAX({2}) FROM {3});").format(table, col, col, table))
+    c.execute(("SELECT * FROM {0} WHERE {1} = (SELECT MAX({2}) FROM {3});").format(table, col, col, table))
+    db.commit()
+
 def checkApos(string):
     '''Fixes strings with apostrophers'''
     i = -1

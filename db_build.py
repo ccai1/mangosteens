@@ -25,7 +25,7 @@ def closeDB():
 usersParam = {"UserID":"INTEGER PRIMARY KEY","Username":"TEXT UNIQUE","Password":"TEXT","Playlists":"TEXT"}
 createTable("users", usersParam)
 
-songsParam = {"SongID":"INTEGER PRIMARY KEY","SongTitle":"TEXT","Artist":"TEXT","Genre":"TEXT","Mood":"TEXT","Minutes":"INTEGER","Seconds":"INTEGER"}
+songsParam = {"SongID":"INTEGER PRIMARY KEY","SongTitle":"TEXT","Artist":"TEXT","Link":"TEXT","PlaylistID":"INTEGER"}
 createTable("songs", songsParam)
 
 playlistParam = {"PlaylistID":"INTEGER PRIMARY KEY", "Songs":"TEXT"}

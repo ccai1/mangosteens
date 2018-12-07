@@ -39,6 +39,7 @@ def login():
         else:
             flash("Wrong password!")
             return render_template('home.html')
+    else:
         flash("Wrong username!")
     return redirect(url_for('home'))
 
@@ -196,20 +197,27 @@ def play():
     length = len(playlist)
     time = music.get_total_time(playlist)
 
-    # db_edit.insert('playlists', playlist)
-    # playlists = db_edit.findInfo('playlists', playlist, 'Songs')
+    print (playlist)
+
+    db_edit.insert('playlists', [time])
+    playlist_id = db_edit.findInfo('playlists', time, 'Songs')[0][0]
+    print ('play here')
+    print (playlist_id)
     # print('---HERE---')
     # print (playlists)
     # print (transit_time)
 
     # playlist = music.gen_playlist(time, tags)
 
-    s_playlist = str(playlist)
+    for song in playlist:
+        songstuff = [playlist_id, song[2], song[1], song[0]]
+        print (songstuff)
+        db_edit.insert('songs', songstuff)
 
     return render_template('play.html',
                            tags=s_tags,
                            playlist = playlist,
-                           s_playlist = s_playlist,
+                           playlist_id = playlist_id,
                            time = time,
                            length = length
     )
@@ -221,38 +229,48 @@ def edit():
     '''displays the playlist with options to delete, select, and shuffle'''
     # playlist = request.form['playlist']
 
-    playlist = request.form.get('save')
+    playlist_id = request.form.get('save')
     print ('---PLAYLIST LOOKS LIKE---')
-    print (playlist)
+    print (playlist_id)
     print ('-------------------------')
+
     user = session['user']
-    db_edit.insert('playlists', playlist)
-    db_edit.modify('users', 'playlists', playlist, 'Username', user)
+    # songs = db_edit.findInfo('songs',playlist_id,'PlaylistID')
+    # print ('--songs--')
+    # print (songs)
+
+    db_edit.modify('users', 'playlists', playlist_id, 'Username', user)
     flash("Playlist has been saved!")
     # getting songs and to display
-    return redirect(url_for('play'))
+    return redirect(url_for('home'))
 # return redirect(url_for('play')
 
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
     user=session['user']
-    playlists = db_edit.findInfo('users', user, 'Username')[0][1]
+    playlist_id = db_edit.findInfo('users', user, 'Username')[0][1]
+    print ('playlist_id')
+    print (playlist_id)
+    songs = db_edit.findInfo('songs',playlist_id,'PlaylistID')
     return render_template('profile.html',
-                            playlists=playlists,
+                            songs=songs,
+                            playlist_id=playlist_id,
                             user=session['user'],
     )
 
 @app.route('/user_profile', methods=['POST', 'GET'])
 def user_profile():
     user = request.form['user']
-    user = db_edit.findInfo('users',user,'Username')
+    playlist_id = db_edit.findInfo('users', user, 'Username')[0][1]
+    songs = db_edit.findInfo('songs',playlist_id,'PlaylistID')
+
     # print ('--user profile--')
     # print (user)
-    username = user[0][0]
-    playlists = user[0][1]
+
     return render_template('user_profile.html',
-                            username=username,
-                            playlists=playlists,
+                            username=user,
+                            songs=songs,
+                            playlist_id=playlist_id,
     )
 
 @app.route('/users', methods=['POST', 'GET'])
