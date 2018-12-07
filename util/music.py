@@ -112,7 +112,7 @@ def fix_track_list(track_list):
 
 #print(check_song("lauv", "reforget"))
 
-# print(get_top_tracks(20))
+print(get_top_tracks(20))
 
 '''
 Get top tracks by tags
@@ -154,7 +154,7 @@ def get_tracks(tag, num):
 '''
 
 def get_tracks_custom(tag, counter, page):
-    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + str(tag) + "&page={}&api_key=" + str(key) + "&format=json"
+    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag + "&page={}&api_key=" + key + "&format=json"
     #print (URL)
 
     response = request.urlopen(URL)
@@ -193,7 +193,7 @@ Get top tracks from 1 to 3 tags regardless of order
 	'''
 
 
-def get_tracks_tagged(num,tag0, tag1, tag2): # FUNCTIONAL, BUT MESSY (SLOW)
+def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
     tags = [tag0, tag1, tag2]
     count_list = [0, 0, 0]
     page_list = [0, 0, 0]
@@ -218,16 +218,16 @@ def get_tracks_tagged(num,tag0, tag1, tag2): # FUNCTIONAL, BUT MESSY (SLOW)
 
     return track_list
 
-# print(get_tracks_tagged("edm", "None", "country", 5))
-# print(get_tracks_tagged("edm", "None", "None", 3))
-# print(get_tracks_tagged("edm", "pop", "country", 3))
-# print(get_tracks_tagged("None", "None", "country", 3))
-# print(get_tracks_tagged("None", "disco", "country", 3))
-# print(get_tracks_tagged("happy", "life", "love", 5))
+print(get_tracks_tagged("edm", "None", "country", 5))
+print(get_tracks_tagged("edm", "None", "None", 3))
+print(get_tracks_tagged("edm", "pop", "country", 3))
+print(get_tracks_tagged("None", "None", "country", 3))
+print(get_tracks_tagged("None", "disco", "country", 3))
+print(get_tracks_tagged("happy", "life", "love", 5))
 
 '''
 TESTING CODE ABOVE
-'''
+
 print(get_tracks_tagged("edm", "None", "country", 3))
 print(get_tracks_tagged("edm", "None", "None", 3))
 print(get_tracks_tagged("edm", "pop", "country", 3))
@@ -236,7 +236,7 @@ print(get_tracks_tagged("None", "disco", "country", 3))
 #print(get_top_tracks(5))
 #print(get_tracks("holidays", 3))
 #print(get_track_duration(get_track_info("Alan Walker", "Faded")))
-
+'''
 '''
 Returns the total duration of a track list
 '''
@@ -255,7 +255,7 @@ def get_total_time(track_list):
 The playlist maker method according to time
 Returns a track list as per the tags or top charts if tags are not giving that will add up to total time
 '''
-def gen_playlist(time, tag0, tag1, tag2):
+def gen_playlist (time, tag0, tag1, tag2):
     track_list = []
     # NO tags given (top chart based)
     if (tag0 == "None" and tag1 =="None" and tag2 == "None"):
