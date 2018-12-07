@@ -15,11 +15,9 @@ def get_track_info(artist, track):
     URL_STUB = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo"
     URL = URL_STUB + "&api_key=" + key + "&artist=" +artist + "&track=" +track + "&format=json"
     #print(URL)
-    
     response = request.urlopen(URL)
     response = response.read()
     data = json.loads(response)
-
     #print(URL)
     return data
 
@@ -43,40 +41,18 @@ Returns a list of artist + track name:
     [['Ariana Grande', 'Thank U, Next'], ['Queen', 'Bohemian Rhapsody - Remastered 2011']]
 '''
 def get_top_tracks(num):
-    URL_STUB = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&page={}&api_key=" + key + "&format=json"
-
-    page = 1
-    URL = URL_STUB.format(page)
-
+    URL = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=" + key + "&format=json"
+    #print (URL)
     response = request.urlopen(URL)
     response = response.read()
     data = json.loads(response)
     track_list = []
-
-    counter = 0
-    while(len(track_list) != num):
-        track_data = data["tracks"]["track"][counter]
-        artist = track_data["artist"]["name"]
-        track_name = track_data["name"]
-
-        if check_song(artist, track_name):
-            track_list.append([artist, track_name])
-
-        counter += 1
-
-        if counter >= 50:
-            counter = 0
-            page += 1
-
-    '''
     for x in range(num):
         track_data = data["tracks"]["track"][x]
         artist = track_data["artist"]["name"]
         track_name = track_data["name"]
         track_list.append([artist, track_name])
     track_list = fix_track_list(track_list)
-    '''
-
     return track_list
 
 '''
@@ -87,7 +63,6 @@ def fix_track_list(track_list):
     #print("Track List:")
     #print(track_list)
     tracks = []
-    
     for track in track_list:
         artist = track[0]
         name = track[1]
@@ -96,7 +71,6 @@ def fix_track_list(track_list):
                 tracks.append(track)
         except:
             # print("Fixed") # Does not add the defective track
-
             '''
     for track in range(len(tracks)):
         artist = track[0]
@@ -105,28 +79,6 @@ def fix_track_list(track_list):
             '''
     return tracks
 
-'''
-	Checks to see if song can be retrieved and has a duration of more than 0
-	Returns True if it's a success otherwise, False
-'''
-def check_song(artist, name):
-
-	try:
-		info = get_track_info(artist, name)
-	except:
-		print("cannot access api")
-		return False
-
-	try:
-		if get_track_duration(info) != 0:
-			return True
-	except:
-		print("something wrong in the data retreived")
-		return False
-
-#print(check_song("lauv", "reforget"))
-
-#print(get_top_tracks(20))
 
 '''
 Get top tracks by tags
@@ -157,7 +109,6 @@ Get top tracks from 1 to 3 tags regardless of order
     print(get_tracks_tagged("None", "None", "country", 3))
     print(get_tracks_tagged("None", "disco", "country", 3))
 '''
-
 def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
     track_list = []
     if tag0 != "None" and tag1 != "None" and tag2 != "None":
@@ -362,7 +313,7 @@ def get_total_time(track_list):
 The playlist maker method according to time
 Returns a track list as per the tags or top charts if tags are not giving that will add up to total time
 '''
-def gen_playlist (time, tag0, tag1, tag2):
+def gen_playlist (time, tag0 = None, tag1 = None, tag2 = None):
     track_list = []
     # NO tags given (top chart based)
     if (tag0 == "None" and tag1 =="None" and tag2 == "None"):
@@ -384,7 +335,7 @@ def gen_playlist (time, tag0, tag1, tag2):
         playlist.append([artist, track_name, track_url])
     return playlist
 
-#print(gen_playlist(1000, "edm", "pop", "country"))
+print(gen_playlist(1000, "edm", "pop", "country"))
 
 '''
 print(get_total_time(get_top_tracks(3)))
