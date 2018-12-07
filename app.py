@@ -165,13 +165,13 @@ def play():
     # playlist = music.get_tracks_tagged(time, tags)
 
     if len(tags) == 0:
-        playlist = music.get_tracks_tagged(time, "None", "None", "None")
+        playlist = music.gen_playlist(time, "None", "None", "None")
     elif len(tags) == 1:
-        playlist = music.get_tracks_tagged(time, tags[0], "None", "None")
+        playlist = music.gen_playlist(time, tags[0], "None", "None")
     elif len(tags) == 2:
-        playlist = music.get_tracks_tagged(time, tags[0], tags[1], "None")
+        playlist = music.gen_playlist(time, tags[0], tags[1], "None")
     else:
-        playlist = music.get_tracks_tagged(time, tags[0], tags[1], tags[2])
+        playlist = music.gen_playlist(time, tags[0], tags[1], tags[2])
 
     # if len(tags) == 0:
     #     playlist = music.gen_playlist(time, "None", "None", "None")
