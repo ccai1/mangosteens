@@ -204,3 +204,7 @@ fabihaT -- 2018-12-06 16:46
 -Fixed obtaining playlist without tags
 -Fixed obtaining playlists with tags
 ==============================================================
+fabihaT -- 2018-12-06 22:14
+--------------------------------------------------------------
+-Decreased runtime of getting a playlist
+==============================================================

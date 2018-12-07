@@ -147,6 +147,7 @@ def play():
     '''runs the song algorithm'''
 
     tags = request.form.get('tags')
+    tags = tags.split(',')
     artist = request.form.get('artist')
 
     transit_length = request.form.get('transit_length')
@@ -160,7 +161,27 @@ def play():
     print ('---PLAY IS CALLED---')
     print (type(time))
     print (time)
-    playlist = music.gen_playlist(time, tags)
+
+    # playlist = music.get_tracks_tagged(time, tags)
+
+    if len(tags) == 0:
+        playlist = music.get_tracks_tagged(time, "None", "None", "None")
+    elif len(tags) == 1:
+        playlist = music.get_tracks_tagged(time, tags[0], "None", "None")
+    elif len(tags) == 2:
+        playlist = music.get_tracks_tagged(time, tags[0], tags[1], "None")
+    else:
+        playlist = music.get_tracks_tagged(time, tags[0], tags[1], tags[2])
+
+    # if len(tags) == 0:
+    #     playlist = music.gen_playlist(time, "None", "None", "None")
+    # elif len(tags) == 1:
+    #     playlist = music.gen_playlist(time, tags[0], "None", "None")
+    # elif len(tags) == 2:
+    #     playlist = music.gen_playlist(time, tags[0], tags[1], "None")
+    # else:
+    #     playlist = music.gen_playlist(time, tags[0], tags[1], tags[2])
+
     length = len(playlist)
     # print (transit_time)
 
