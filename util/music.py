@@ -218,12 +218,12 @@ def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
 
     return track_list
 
-# print(get_tracks_tagged("edm", "None", "country", 5))
-# print(get_tracks_tagged("edm", "None", "None", 3))
-# print(get_tracks_tagged("edm", "pop", "country", 3))
-# print(get_tracks_tagged("None", "None", "country", 3))
-# print(get_tracks_tagged("None", "disco", "country", 3))
-# print(get_tracks_tagged("happy", "life", "love", 5))
+print(get_tracks_tagged("edm", "None", "country", 5))
+print(get_tracks_tagged("edm", "None", "None", 3))
+print(get_tracks_tagged("edm", "pop", "country", 3))
+print(get_tracks_tagged("None", "None", "country", 3))
+print(get_tracks_tagged("None", "disco", "country", 3))
+print(get_tracks_tagged("happy", "life", "love", 5))
 
 '''
 TESTING CODE ABOVE
