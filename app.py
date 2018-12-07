@@ -164,16 +164,17 @@ def play():
 
     # playlist = music.get_tracks_tagged(time, tags)
 
+    # if len(tags) == 0:
+    #
+    #     playlist = music.get_tracks_tagged("None", "None", "None", time)
+    # elif len(tags) == 1:
+    #     playlist = music.get_tracks_tagged(tags[0], "None", "None", time)
+    # elif len(tags) == 2:
+    #     playlist = music.get_tracks_tagged(tags[0], tags[1], "None", time)
+    # else:
+    #     playlist = music.get_tracks_tagged(tags[0], tags[1], tags[2], time)
+
     if len(tags) == 0:
-<<<<<<< HEAD
-        playlist = music.get_tracks_tagged("None", "None", "None", time)
-    elif len(tags) == 1:
-        playlist = music.get_tracks_tagged(tags[0], "None", "None", time)
-    elif len(tags) == 2:
-        playlist = music.get_tracks_tagged(tags[0], tags[1], "None", time)
-    else:
-        playlist = music.get_tracks_tagged(tags[0], tags[1], tags[2], time)
-=======
         playlist = music.gen_playlist(time, "None", "None", "None")
     elif len(tags) == 1:
         playlist = music.gen_playlist(time, tags[0], "None", "None")
@@ -181,7 +182,6 @@ def play():
         playlist = music.gen_playlist(time, tags[0], tags[1], "None")
     else:
         playlist = music.gen_playlist(time, tags[0], tags[1], tags[2])
->>>>>>> e90acb7eb90e21714223a64700a9b408f78c96f2
 
     # if len(tags) == 0:
     #     playlist = music.gen_playlist(time, "None", "None", "None")

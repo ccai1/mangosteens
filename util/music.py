@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("../data/keys.json") as f:
+with open("data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -236,7 +236,7 @@ def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
         counter += 1
 
     return track_list
-<<<<<<< HEAD
+
 
 # print(get_tracks_tagged("edm", "None", "country", 5))
 # print(get_tracks_tagged("edm", "None", "None", 3))
@@ -245,7 +245,6 @@ def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
 # print(get_tracks_tagged("None", "disco", "country", 3))
 # print(get_tracks_tagged("happy", "life", "love", 5))
 
-=======
 '''
 print(get_tracks_tagged("edm", "None", "country", 5))
 print(get_tracks_tagged("edm", "None", "None", 3))
@@ -254,7 +253,6 @@ print(get_tracks_tagged("None", "None", "country", 3))
 print(get_tracks_tagged("None", "disco", "country", 3))
 print(get_tracks_tagged("happy", "life", "love", 5))
 '''
->>>>>>> e90acb7eb90e21714223a64700a9b408f78c96f2
 '''
 TESTING CODE ABOVE
 
@@ -316,7 +314,7 @@ def gen_playlist (time, tag0, tag1, tag2):
     #     track_url = get_track_url(get_track_info(artist, track_name))
     #     playlist.append([artist, track_name, track_url])
 
-print(gen_playlist(6000, "edm", "pop", "country"))
+# print(gen_playlist(6000, "edm", "pop", "country"))
 # print(gen_playlist(6000, "edm", "pop", "country")) # takes a couple seconds to gen the playlist
 # print(get_tracks_tagged("edm", "None", "None", 6))
 '''
