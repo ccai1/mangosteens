@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("data/keys.json") as f:
+with open("../data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -127,7 +127,7 @@ Returns a list of artist + track name (same as get_top_tracks(num))
 '''
 
 def get_tracks(tag, num):
-    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag + "&page={}&api_key=" + key + "&format=json"
+    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + str(tag) + "&page={}&api_key=" + str(key) + "&format=json"
     #print (URL)
 
     page = 0
@@ -167,8 +167,8 @@ def get_tracks(tag, num):
 '''
 
 def get_tracks_custom(tag, counter, page):
-    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag + "&page={}&api_key=" + key + "&format=json"
-    #print (URL)
+    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + str(tag) + "&page={}&api_key=" + str(key) + "&format=json"
+    print (URL)
 
     response = request.urlopen(URL)
     response = response.read()
@@ -236,14 +236,14 @@ def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
         counter += 1
 
     return track_list
-
-# print(get_tracks_tagged("edm", "None", "country", 5))
-# print(get_tracks_tagged("edm", "None", "None", 3))
-# print(get_tracks_tagged("edm", "pop", "country", 3))
-# print(get_tracks_tagged("None", "None", "country", 3))
-# print(get_tracks_tagged("None", "disco", "country", 3))
-# print(get_tracks_tagged("happy", "life", "love", 5))
-
+'''
+print(get_tracks_tagged("edm", "None", "country", 5))
+print(get_tracks_tagged("edm", "None", "None", 3))
+print(get_tracks_tagged("edm", "pop", "country", 3))
+print(get_tracks_tagged("None", "None", "country", 3))
+print(get_tracks_tagged("None", "disco", "country", 3))
+print(get_tracks_tagged("happy", "life", "love", 5))
+'''
 '''
 TESTING CODE ABOVE
 
@@ -275,14 +275,16 @@ The playlist maker method according to time
 Returns a track list as per the tags or top charts if tags are not giving that will add up to total time
 '''
 def gen_playlist (time, tag0, tag1, tag2):
-    # track_list = []
-
-	num = int(time / 223)
-
-	playlist = get_tracks_tagged(tag0, tag1, tag2, num)
-	time = get_total_time(playlist)
-	print(time)
-	return playlist
+    num = int(time / 223)
+    track_list = get_tracks_tagged(tag0, tag1, tag2, num)
+    for track in track_list:
+        artist = track[0]
+        track_name = track[1]
+        track_url = get_track_url(get_track_info(artist, track_name))
+        track.append(track_url)
+    time = get_total_time(track_list)
+    print(time)
+    return track_list
 
     # # NO tags given (top chart based)
     # if (tag0 == "None" and tag1 =="None" and tag2 == "None"):
@@ -303,7 +305,7 @@ def gen_playlist (time, tag0, tag1, tag2):
     #     track_url = get_track_url(get_track_info(artist, track_name))
     #     playlist.append([artist, track_name, track_url])
 
-#print(gen_playlist(6000, "edm", "pop", "country"))
+print(gen_playlist(6000, "edm", "pop", "country"))
 # print(gen_playlist(6000, "edm", "pop", "country")) # takes a couple seconds to gen the playlist
 # print(get_tracks_tagged("edm", "None", "None", 6))
 '''
