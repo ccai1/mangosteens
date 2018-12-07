@@ -165,13 +165,13 @@ def play():
     # playlist = music.get_tracks_tagged(time, tags)
 
     if len(tags) == 0:
-        playlist = music.get_tracks_tagged(time, "None", "None", "None")
+        playlist = music.get_tracks_tagged("None", "None", "None", time)
     elif len(tags) == 1:
-        playlist = music.get_tracks_tagged(time, tags[0], "None", "None")
+        playlist = music.get_tracks_tagged(tags[0], "None", "None", time)
     elif len(tags) == 2:
-        playlist = music.get_tracks_tagged(time, tags[0], tags[1], "None")
+        playlist = music.get_tracks_tagged(tags[0], tags[1], "None", time)
     else:
-        playlist = music.get_tracks_tagged(time, tags[0], tags[1], tags[2])
+        playlist = music.get_tracks_tagged(tags[0], tags[1], tags[2], time)
 
     # if len(tags) == 0:
     #     playlist = music.gen_playlist(time, "None", "None", "None")
@@ -189,8 +189,8 @@ def play():
 
     saved_playlist = request.form.get('saved')
     db_edit.insert('playlists', [saved_playlist])
-    
-    
+
+
     return render_template('play.html',
                            playlist = playlist,
                            length = length
