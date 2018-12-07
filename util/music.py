@@ -120,7 +120,7 @@ Returns a list of artist + track name (same as get_top_tracks(num))
 '''
 
 def get_tracks(tag, num):
-    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag + "&page={}&api_key=" + key + "&format=json"
+    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + str(tag) + "&page={}&api_key=" + str(key) + "&format=json"
     #print (URL)
 
     page = 0
@@ -154,8 +154,8 @@ def get_tracks(tag, num):
 '''
 
 def get_tracks_custom(tag, counter, page):
-    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag + "&page={}&api_key=" + key + "&format=json"
-    #print (URL)
+    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + str(tag) + "&page={}&api_key=" + str(key) + "&format=json"
+    print (URL)
 
     response = request.urlopen(URL)
     response = response.read()
