@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("../data/keys.json") as f:
+with open("data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -112,7 +112,7 @@ def fix_track_list(track_list):
 
 #print(check_song("lauv", "reforget"))
 
-print(get_top_tracks(20))
+# print(get_top_tracks(20))
 
 '''
 Get top tracks by tags
@@ -256,31 +256,38 @@ The playlist maker method according to time
 Returns a track list as per the tags or top charts if tags are not giving that will add up to total time
 '''
 def gen_playlist (time, tag0, tag1, tag2):
-    track_list = []
-    # NO tags given (top chart based)
-    if (tag0 == "None" and tag1 =="None" and tag2 == "None"):
-        for num in range(1,50): # 50 searches per page max
-            if time - get_total_time(get_top_tracks(num)) < 0:
-                track_list = get_top_tracks(num) # triple checking for broken tracks
-                break
-    else:
-        # tags given
-        for num in range(1,50):
-            if time - get_total_time(get_tracks_tagged(tag0, tag1, tag2, num)) < 0:
-                   track_list = get_tracks_tagged(tag0, tag1, tag2,num)
-                   break
-    playlist = [] # adding URL to playlist
-    for track in track_list: # adds to wait time for generating playlists
-        artist = track[0]
-        track_name = track[1]
-        track_url = get_track_url(get_track_info(artist, track_name))
-        playlist.append([artist, track_name, track_url])
-    return playlist
+    # track_list = []
+
+	num = int(time / 223)
+
+	playlist = get_tracks_tagged(tag0, tag1, tag2, num)
+	time = get_total_time(playlist)
+	print(time)
+	return playlist
+
+    # # NO tags given (top chart based)
+    # if (tag0 == "None" and tag1 =="None" and tag2 == "None"):
+    #     for num in range(1,50): # 50 searches per page max
+    #         if time - get_total_time(get_top_tracks(num)) < 0:
+    #             track_list = get_top_tracks(num) # triple checking for broken tracks
+    #             break
+    # else:
+    #     # tags given
+    #     for num in range(1,50):
+    #         if time - get_total_time(get_tracks_tagged(tag0, tag1, tag2, num)) < 0:
+    #                track_list = get_tracks_tagged(tag0, tag1, tag2,num)
+    #                break
+    # playlist = [] # adding URL to playlist
+    # for track in track_list: # adds to wait time for generating playlists
+    #     artist = track[0]
+    #     track_name = track[1]
+    #     track_url = get_track_url(get_track_info(artist, track_name))
+    #     playlist.append([artist, track_name, track_url])
 
 #print(gen_playlist(6000, "edm", "pop", "country"))
-
+# print(gen_playlist(6000, "edm", "pop", "country")) # takes a couple seconds to gen the playlist
+# print(get_tracks_tagged("edm", "None", "None", 6))
 '''
 print(get_total_time(get_top_tracks(3)))
-print(gen_playlist(1000, "edm")) # takes a couple seconds to gen the playlist
 print(gen_playlist(2000, "None"))
 '''
