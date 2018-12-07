@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+  {% block navbar %}
+
+  <div class="container">
+
+  <div id="nav">
+    <div id="nav-row" class="row justify-content-center align-items-center">
+      <div id="nav-column" class="col-md-8">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link" href="/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/users">Other Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">New Playlist</a>
+          </li>
+        </ul>
+      </div>
+  </div>
+  </div><br><br>
+
+  </div>
+
+  {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div id="nav-row" class="row justify-content-center align-items-center">
+      <div id="nav-column" class="col-md-8">
+        <h3>Meet our other users!</h3><br>
+
+        <form action="/user_profile" method = "POST">
+
+          <div class="container">
+
+            {% for user in users %}
+              <div class="row">
+                <div class="col">
+                  <h5>{{user[0]}}</h5>
+                </div>
+                <div class="col">
+                  <button type="submit" class="btn btn-info btn-sm float-right" name="user" value={{user}}>View Playlists</button><br><br><br>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

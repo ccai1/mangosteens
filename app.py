@@ -235,6 +235,16 @@ def profile():
 
     )
 
+@app.route('/users', methods=['POST', 'GET'])
+def users():
+    user = session['user']
+    users = db_edit.findInfo('users',user,'Username', notEqual = True)
+    print ('our users')
+    print (users)
+    return render_template('users.html',
+                            users=users
+        )
+
 @app.route('/logout')
 def logout():
     '''pops user from session, brings user back to home page'''
