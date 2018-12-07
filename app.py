@@ -166,6 +166,10 @@ def play():
 
     # playlist = music.gen_playlist(time, tags)
 
+    saved_playlist = request.form.get('saved')
+    db_edit.insert('playlists', [saved_playlist])
+    
+    
     return render_template('play.html',
                            playlist = playlist,
                            length = length

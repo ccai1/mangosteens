@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+&{% extends "base.html" %}
 
 {% block navbar %}
 
@@ -56,6 +56,7 @@
 	<thead>
 	  <tr>
 	    <th scope="col">#</th>
+
 	    <th scope="col">Artist</th>
 	    <th scope="col">Song Title</th>
 	    <th scope="col">Link</th>
@@ -74,6 +75,8 @@
       </table>
       <div class="col-sm">
         <button type="submit" class="btn btn-info float-right" name="listen" value="{listen}">Play</button>
+	<input type="hidden" value="{{ playlist }}" name="saved"></input>
+	<button type="submit" class="btn btn-info float-right" name="save" value="{save}">Save</button><br><br>
       </div>
     </div><br>
 
