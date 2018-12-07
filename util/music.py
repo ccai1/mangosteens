@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("data/keys.json") as f:
+with open("../data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -67,6 +67,13 @@ def get_top_tracks(num):
         if counter >= 50:
             counter = 0
             page += 1
+
+            URL = URL_STUB.format(page)
+
+            response = request.urlopen(URL)
+            response = response.read()
+            data = json.loads(response)
+
 
     return track_list
 
@@ -146,6 +153,12 @@ def get_tracks(tag, num):
             counter = 0
             page += 1
 
+            URL = URL_STUB.format(page)
+
+            response = request.urlopen(URL)
+            response = response.read()
+            data = json.loads(response)
+
     return track_list
 
 '''
@@ -183,6 +196,12 @@ def get_tracks_custom(tag, counter, page):
             counter = 0
             page += 1
 
+            URL = URL_STUB.format(page)
+
+            response = request.urlopen(URL)
+            response = response.read()
+            data = json.loads(response)
+
     return track_list
 
 # print(get_tracks("happy", 5))
@@ -217,6 +236,7 @@ def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
         counter += 1
 
     return track_list
+<<<<<<< HEAD
 
 # print(get_tracks_tagged("edm", "None", "country", 5))
 # print(get_tracks_tagged("edm", "None", "None", 3))
@@ -225,6 +245,16 @@ def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
 # print(get_tracks_tagged("None", "disco", "country", 3))
 # print(get_tracks_tagged("happy", "life", "love", 5))
 
+=======
+'''
+print(get_tracks_tagged("edm", "None", "country", 5))
+print(get_tracks_tagged("edm", "None", "None", 3))
+print(get_tracks_tagged("edm", "pop", "country", 3))
+print(get_tracks_tagged("None", "None", "country", 3))
+print(get_tracks_tagged("None", "disco", "country", 3))
+print(get_tracks_tagged("happy", "life", "love", 5))
+'''
+>>>>>>> e90acb7eb90e21714223a64700a9b408f78c96f2
 '''
 TESTING CODE ABOVE
 
@@ -256,14 +286,16 @@ The playlist maker method according to time
 Returns a track list as per the tags or top charts if tags are not giving that will add up to total time
 '''
 def gen_playlist (time, tag0, tag1, tag2):
-    # track_list = []
-
-	num = int(time / 223)
-
-	playlist = get_tracks_tagged(tag0, tag1, tag2, num)
-	time = get_total_time(playlist)
-	print(time)
-	return playlist
+    num = int(time / 223)
+    track_list = get_tracks_tagged(tag0, tag1, tag2, num)
+    for track in track_list:
+        artist = track[0]
+        track_name = track[1]
+        track_url = get_track_url(get_track_info(artist, track_name))
+        track.append(track_url)
+    time = get_total_time(track_list)
+    print(time)
+    return track_list
 
     # # NO tags given (top chart based)
     # if (tag0 == "None" and tag1 =="None" and tag2 == "None"):
@@ -284,7 +316,7 @@ def gen_playlist (time, tag0, tag1, tag2):
     #     track_url = get_track_url(get_track_info(artist, track_name))
     #     playlist.append([artist, track_name, track_url])
 
-#print(gen_playlist(6000, "edm", "pop", "country"))
+print(gen_playlist(6000, "edm", "pop", "country"))
 # print(gen_playlist(6000, "edm", "pop", "country")) # takes a couple seconds to gen the playlist
 # print(get_tracks_tagged("edm", "None", "None", 6))
 '''
