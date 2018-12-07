@@ -195,6 +195,11 @@ def play():
 
     length = len(playlist)
     time = music.get_total_time(playlist)
+
+    db_edit.insert('playlists', [playlist[0]])
+    playlists = db_edit.findInfo('playlists', playlist, 'Songs')
+    print('---HERE---')
+    print (playlists)
     # print (transit_time)
 
     # playlist = music.gen_playlist(time, tags)
@@ -217,7 +222,6 @@ def edit():
     print ('---PLAYLIST LOOKS LIKE---')
     print (playlist)
     print ('-------------------------')
-    db_edit.insert('playlists', [playlist])
     user = session['user']
     db_edit.modify('users', 'playlists', str(playlist), 'Username', user)
     flash("Playlist has been saved!")
@@ -232,7 +236,18 @@ def profile():
     return render_template('profile.html',
                             playlists=playlists,
                             user=session['user'],
+    )
 
+@app.route('/user_profile', methods=['POST', 'GET'])
+def user_profile():
+    user = request.form['user']
+    print ('---user---')
+    print (user)
+    username = user[0]
+    playlists = user[1]
+    return render_template('user_profile.html',
+                            username=username,
+                            playlists=playlists,
     )
 
 @app.route('/users', methods=['POST', 'GET'])
