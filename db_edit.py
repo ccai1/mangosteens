@@ -24,8 +24,6 @@ def insert(tableName, info):
             else:
                 colNames += "'" + cols[1] + "'"+ ','
     colNames = colNames[:-1]
-    print ('column names')
-    print (colNames)
     values = ''
     for val in info:
         values += "'" + str(val) + "'" + ","
