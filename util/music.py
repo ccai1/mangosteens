@@ -1,7 +1,7 @@
 import json
 from urllib import request, parse
 
-with open("data/keys.json") as f:
+with open("../data/keys.json") as f:
 	api_keys = json.load(f)
 
 key = api_keys["tracks_key"]
@@ -15,9 +15,11 @@ def get_track_info(artist, track):
     URL_STUB = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo"
     URL = URL_STUB + "&api_key=" + key + "&artist=" +artist + "&track=" +track + "&format=json"
     #print(URL)
+
     response = request.urlopen(URL)
     response = response.read()
     data = json.loads(response)
+
     #print(URL)
     return data
 
@@ -41,19 +43,52 @@ Returns a list of artist + track name:
     [['Ariana Grande', 'Thank U, Next'], ['Queen', 'Bohemian Rhapsody - Remastered 2011']]
 '''
 def get_top_tracks(num):
-    URL = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=" + key + "&format=json"
-    #print (URL)
+    URL_STUB = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&page={}&api_key=" + key + "&format=json"
+
+    page = 1
+    URL = URL_STUB.format(page)
+
     response = request.urlopen(URL)
     response = response.read()
     data = json.loads(response)
     track_list = []
-    for x in range(num):
-        track_data = data["tracks"]["track"][x]
+
+    counter = 0
+    while(len(track_list) != num):
+        track_data = data["tracks"]["track"][counter]
         artist = track_data["artist"]["name"]
         track_name = track_data["name"]
-        track_list.append([artist, track_name])
-    track_list = fix_track_list(track_list)
+
+        if check_song(artist, track_name):
+            track_list.append([artist, track_name])
+
+        counter += 1
+
+        if counter >= 50:
+            counter = 0
+            page += 1
+
     return track_list
+
+'''
+	Checks to see if song can be retrieved and has a duration of more than 0
+	Returns True if it's a success otherwise, False
+'''
+def check_song(artist, name):
+
+	try:
+		info = get_track_info(artist, name)
+	except:
+		print("cannot access api")
+		return False
+
+	try:
+		if get_track_duration(info) != 0:
+			return True
+	except:
+		print("something wrong in the data retreived")
+		return False
+
 
 '''
 Fixing track list; removes tracks with 0 duration
@@ -63,6 +98,7 @@ def fix_track_list(track_list):
     #print("Track List:")
     #print(track_list)
     tracks = []
+
     for track in track_list:
         artist = track[0]
         name = track[1]
@@ -70,222 +106,128 @@ def fix_track_list(track_list):
             if get_track_duration(get_track_info(artist, name)) != 0:
                 tracks.append(track)
         except:
-            # print("Fixed") # Does not add the defective track
-            '''
-    for track in range(len(tracks)):
-        artist = track[0]
-        name = track[1]
-        if get_track_duration(get_track_info(artist, name)) == 0:
-            '''
+             print("Fixed") # Does not add the defective track
     return tracks
 
+
+#print(check_song("lauv", "reforget"))
+
+# print(get_top_tracks(20))
 
 '''
 Get top tracks by tags
 Returns a list of artist + track name (same as get_top_tracks(num))
 '''
+
 def get_tracks(tag, num):
-    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag + "&api_key=" + key + "&format=json"
+    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag + "&page={}&api_key=" + key + "&format=json"
     #print (URL)
+
+    page = 0
+
     response = request.urlopen(URL)
     response = response.read()
     data = json.loads(response)
+
     track_list = []
-    for x in range(num):
-        track_data = data["tracks"]["track"][x]
+
+    counter = 0
+    while(len(track_list) != num):
+        track_data = data["tracks"]["track"][counter]
         artist = track_data["artist"]["name"]
         track_name = track_data["name"]
-        #track_url = get_track_url(get_track_info(artist, track_name))
-        track_list.append([artist, track_name])
-    track_list = fix_track_list(track_list) # first fix
+
+        if check_song(artist, track_name):
+            track_list.append([artist, track_name])
+
+        counter += 1
+
+        if counter >= 50:
+            counter = 0
+            page += 1
+
     return track_list
+
+'''
+	Get a single track of a tag starting from that tag, counter, and page number
+	Returns a list of [new counter, new page number, [artist, song name]]
+'''
+
+def get_tracks_custom(tag, counter, page):
+    URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + str(tag) + "&page={}&api_key=" + str(key) + "&format=json"
+    #print (URL)
+
+    response = request.urlopen(URL)
+    response = response.read()
+    data = json.loads(response)
+
+    track_list = []
+
+    while(True):
+        track_data = data["tracks"]["track"][counter]
+        artist = track_data["artist"]["name"]
+        track_name = track_data["name"]
+
+        if check_song(artist, track_name):
+            counter += 1
+
+            if counter >= 50:
+                counter = 0
+                page += 1
+
+            return [counter, page, [artist, track_name]]
+
+        counter += 1
+
+        if counter >= 50:
+            counter = 0
+            page += 1
+
+    return track_list
+
+# print(get_tracks("happy", 5))
 
 '''
 Get top tracks from 1 to 3 tags regardless of order
     ex:
-    print(get_tracks_tagged("edm", "None", "country", 5))
-    print(get_tracks_tagged("edm", "None", "None", 3))
-    print(get_tracks_tagged("edm", "pop", "country", 3))
-    print(get_tracks_tagged("None", "None", "country", 3))
-    print(get_tracks_tagged("None", "disco", "country", 3))
-'''
-def get_tracks_tagged(tag0, tag1, tag2, num): # FUNCTIONAL, BUT MESSY (SLOW)
+	'''
+
+
+def get_tracks_tagged(num,tag0, tag1, tag2): # FUNCTIONAL, BUT MESSY (SLOW)
+    tags = [tag0, tag1, tag2]
+    count_list = [0, 0, 0]
+    page_list = [0, 0, 0]
+
     track_list = []
-    if tag0 != "None" and tag1 != "None" and tag2 != "None":
-        tag0_num = int(num / 3)
-        tag1_num = int(num / 3)
-        tag2_num = num - (tag0_num + tag1_num)
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag0 + "&api_key=" + key + "&format=json"
-        #print (URL)
-        response = request.urlopen(URL)
-        response = response.read()
-        tag0_data = json.loads(response)
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag1 + "&api_key=" + key + "&format=json"
-        response = request.urlopen(URL)
-        response = response.read()
-        tag1_data = json.loads(response)
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag2 + "&api_key=" + key + "&format=json"
-        response = request.urlopen(URL)
-        response = response.read()
-        tag2_data = json.loads(response)
-        for x in range(tag0_num):
-            track_data = tag0_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-        for x in range(tag1_num):
-            track_data = tag1_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-        for x in range(tag2_num):
-            track_list = fix_track_list(track_list) # first fix
-            track_data = tag2_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-    elif tag0 != "None" and tag1 == "None" and tag2 == "None":
-        tag0_num = num
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag0 + "&api_key=" + key + "&format=json"
-        #print (URL)
-        response = request.urlopen(URL)
-        response = response.read()
-        tag0_data = json.loads(response)
-        for x in range(tag0_num):
-            track_data = tag0_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-    elif tag0 == "None" and tag1 != "None" and tag2 == "None":
-        tag1_num = num
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag1 + "&api_key=" + key + "&format=json"
-        #print (URL)
-        response = request.urlopen(URL)
-        response = response.read()
-        tag1_data = json.loads(response)
-        for x in range(tag1_num):
-            track_data = tag1_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-    elif tag0 == "None" and tag1 == "None" and tag2 != "None":
-        tag2_num = num
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag2 + "&api_key=" + key + "&format=json"
-        #print (URL)
-        response = request.urlopen(URL)
-        response = response.read()
-        tag2_data = json.loads(response)
-        for x in range(tag2_num):
-            track_data = tag2_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-    elif tag0 != "None" and tag1 != "None" and tag2 == "None":
-        tag0_num = int(num/2)
-        tag1_num = num - tag0_num
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag0 + "&api_key=" + key + "&format=json"
-        #print (URL)
-        response = request.urlopen(URL)
-        response = response.read()
-        tag0_data = json.loads(response)
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag1 + "&api_key=" + key + "&format=json"
-        #print (URL)
-        response = request.urlopen(URL)
-        response = response.read()
-        tag1_data = json.loads(response)
-        for x in range(tag0_num):
-            track_data = tag0_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-        for x in range(tag1_num):
-            track_data = tag1_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-    elif tag0 != "None" and tag1 == "None" and tag2 != "None":
-        tag0_num = int(num/2)
-        tag2_num = num - tag0_num
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag0 + "&api_key=" + key + "&format=json"
-        #print (URL)
-        response = request.urlopen(URL)
-        response = response.read()
-        tag0_data = json.loads(response)
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag2 + "&api_key=" + key + "&format=json"
-        #print (URL)
-        response = request.urlopen(URL)
-        response = response.read()
-        tag2_data = json.loads(response)
-        for x in range(tag0_num):
-            track_data = tag0_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-        for x in range(tag2_num):
-            track_data = tag2_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-    elif tag0 == "None" and tag1 != "None" and tag2 != "None":
-        tag2_num = int(num/2)
-        tag1_num = num - tag2_num
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag2 + "&api_key=" + key + "&format=json"
-        #print (URL)
-        response = request.urlopen(URL)
-        response = response.read()
-        tag2_data = json.loads(response)
-        URL = "http://ws.audioscrobbler.com//2.0/?method=tag.gettoptracks&tag=" + tag2 + "&api_key=" + key + "&format=json"
-        #print (URL)
-        response = request.urlopen(URL)
-        response = response.read()
-        tag1_data = json.loads(response)
-        for x in range(tag2_num):
-            track_data = tag2_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-        for x in range(tag1_num):
-            track_data = tag1_data["tracks"]["track"][x]
-            artist = track_data["artist"]["name"]
-            track_name = track_data["name"]
-            #track_url = get_track_url(get_track_info(artist, track_name))
-            track_list.append([artist, track_name])
-    else:
-        print("Use the top charts method, not this one!")
-    track_list = fix_track_list(track_list) # first fix
+
+    counter = 0
+
+    if tags[0] == "None" and tags[1] == "None" and tags[2] == "None":
+        return get_top_tracks(num)
+
+    while (len(track_list) != num):
+        if tags[counter % 3] != "None":
+            data = get_tracks_custom(tags[counter % 3], count_list[counter % 3], page_list[counter % 3])
+
+            count_list[counter % 3] = data[0]
+            page_list[counter % 3] = data[1]
+            track_list.append(data[2])
+            #print(data)
+
+        counter += 1
+
     return track_list
 
-    #elif:
-    #    return track_list
-'''
-    for x in range(num):
-        track_data = tag1_data["tracks"]["track"][x]
-        artist = track_data["artist"]["name"]
-        track_name = track_data["name"]
-        #track_url = get_track_url(get_track_info(artist, track_name))
-        track_list.append([artist, track_name])
-    track_list = fix_track_list(track_list) # first fix
-    for x in range(num):
-        track_data = tag2_data["tracks"]["track"][x]
-        artist = track_data["artist"]["name"]
-        track_name = track_data["name"]
-        #track_url = get_track_url(get_track_info(artist, track_name))
-        track_list.append([artist, track_name])
-'''
+# print(get_tracks_tagged("edm", "None", "country", 5))
+# print(get_tracks_tagged("edm", "None", "None", 3))
+# print(get_tracks_tagged("edm", "pop", "country", 3))
+# print(get_tracks_tagged("None", "None", "country", 3))
+# print(get_tracks_tagged("None", "disco", "country", 3))
+# print(get_tracks_tagged("happy", "life", "love", 5))
+
 '''
 TESTING CODE ABOVE
-
+'''
 print(get_tracks_tagged("edm", "None", "country", 3))
 print(get_tracks_tagged("edm", "None", "None", 3))
 print(get_tracks_tagged("edm", "pop", "country", 3))
@@ -294,13 +236,13 @@ print(get_tracks_tagged("None", "disco", "country", 3))
 #print(get_top_tracks(5))
 #print(get_tracks("holidays", 3))
 #print(get_track_duration(get_track_info("Alan Walker", "Faded")))
-'''
+
 '''
 Returns the total duration of a track list
 '''
 def get_total_time(track_list):
     total_time = 0
-    track_list = fix_track_list(track_list) # second fix for broken songs with 0 duration
+    #track_list = fix_track_list(track_list) # second fix for broken songs with 0 duration
     for track in track_list:
             artist = track[0]
             name = track[1]
@@ -313,19 +255,19 @@ def get_total_time(track_list):
 The playlist maker method according to time
 Returns a track list as per the tags or top charts if tags are not giving that will add up to total time
 '''
-def gen_playlist (time, tag0 = None, tag1 = None, tag2 = None):
+def gen_playlist(time, tag0, tag1, tag2):
     track_list = []
     # NO tags given (top chart based)
     if (tag0 == "None" and tag1 =="None" and tag2 == "None"):
         for num in range(1,50): # 50 searches per page max
             if time - get_total_time(get_top_tracks(num)) < 0:
-                track_list = fix_track_list(get_top_tracks(num)) # triple checking for broken tracks
+                track_list = get_top_tracks(num) # triple checking for broken tracks
                 break
     else:
         # tags given
         for num in range(1,50):
             if time - get_total_time(get_tracks_tagged(tag0, tag1, tag2, num)) < 0:
-                   track_list = fix_track_list(get_tracks_tagged(tag0, tag1, tag2,num))
+                   track_list = get_tracks_tagged(tag0, tag1, tag2,num)
                    break
     playlist = [] # adding URL to playlist
     for track in track_list: # adds to wait time for generating playlists
@@ -335,7 +277,7 @@ def gen_playlist (time, tag0 = None, tag1 = None, tag2 = None):
         playlist.append([artist, track_name, track_url])
     return playlist
 
-print(gen_playlist(1000, "edm", "pop", "country"))
+#print(gen_playlist(6000, "edm", "pop", "country"))
 
 '''
 print(get_total_time(get_top_tracks(3)))
