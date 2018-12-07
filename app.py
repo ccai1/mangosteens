@@ -147,6 +147,7 @@ def play():
     '''runs the song algorithm'''
 
     tags = request.form.get('tags')
+    s_tags = tags
     tags = tags.split(',')
     artist = request.form.get('artist')
 
@@ -193,16 +194,15 @@ def play():
     #     playlist = music.gen_playlist(time, tags[0], tags[1], tags[2])
 
     length = len(playlist)
+    time = music.get_total_time(playlist)
     # print (transit_time)
 
     # playlist = music.gen_playlist(time, tags)
 
-    saved_playlist = request.form.get('saved')
-    db_edit.insert('playlists', [saved_playlist])
-
-
     return render_template('play.html',
+                           tags=s_tags,
                            playlist = playlist,
+                           time = time,
                            length = length
     )
 
@@ -213,11 +213,27 @@ def edit():
     '''displays the playlist with options to delete, select, and shuffle'''
     # playlist = request.form['playlist']
 
-    playlist = {1: {'SongTitle': 'Rise', 'Artist': 'Jonas Blue', 'Minutes': 3.25}, 2: {'SongTitle': 'Never Enough', 'Artist': 'Loren Allred', 'Minutes': 3.5}}
-    length = len(playlist) + 1
+    playlist = request.form.get('save')
+    print ('---PLAYLIST LOOKS LIKE---')
+    print (playlist)
+    print ('-------------------------')
+    db_edit.insert('playlists', [playlist])
+    user = session['user']
+    db_edit.modify('users', 'playlists', str(playlist), 'Username', user)
+    flash("Playlist has been saved!")
     # getting songs and to display
-    return render_template('edit.html', playlist = playlist, length = length)
-# return redirect(url_for('play'))
+    return redirect(url_for('play'))
+# return redirect(url_for('play')
+
+@app.route('/profile', methods=['POST', 'GET'])
+def profile():
+    user=session['user']
+    playlists = db_edit.findInfo('users', user, 'Username')[0][1]
+    return render_template('profile.html',
+                            playlists=playlists,
+                            user=session['user'],
+
+    )
 
 @app.route('/logout')
 def logout():

@@ -208,3 +208,9 @@ fabihaT -- 2018-12-06 22:14
 --------------------------------------------------------------
 -Decreased runtime of getting a playlist
 ==============================================================
+cathyC -- 2018-12-06 11:33
+--------------------------------------------------------------
+-Completely linked app.py to music algorithm
+-Added profile and view playlist page
+-Added save playlists to playlist table
+==============================================================

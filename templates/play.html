@@ -1,4 +1,4 @@
-&{% extends "base.html" %}
+{% extends "base.html" %}
 
 
 
@@ -32,27 +32,46 @@
 {% block content %}
 <div class="container">
 
+  <div id="nav-row" class="row justify-content-center align-items-center">
+  <div id="nav-column" class="col-md-8">
+
+    {% set msgs = get_flashed_messages()%}
+    {% for each in msgs %}
+      <div class="p-3 mb-2 bg-success text-white">
+        <p>{{each}}</p>
+      </div>
+    {% endfor %}
+
+
   <h3>Your Info</h3><br>
 
-  <b>Your route time:</b><br>
   <!-- </b> 1 hr. 5 min.<br> -->
-  <b>Your route:</b><br>
   <!-- 2, 3 transfer to the R<br><br> -->
 
   <!-- SMALL MAP HERE <br><br> -->
 
-  <b>Mood:</b> Depressing<br>
-  <b>Genre:</b> Pop<br><br>
+  <b>Tag(s):</b> {{s_tags}} <br>
 
   <hr>
 
   <form action="/edit" method = "POST">
 
-    <div class="row">
-      <div class="col-sm">
-        <h3>Our Playlist</h3>
+    <div id="nav-row" class="row justify-content-center align-items-center">
+    <div id="nav-column" class="col-md-12">
+        <h3>Our Playlist</h3><br>
+        <b>Playlist Time:</b>
+          {% if (time|int) // 3600 != 0 %}
+            {{(time|int) // 3600}} hours,
+          {% endif %}
+          {% if (time|int) % 3600 != 0 %}
+            {{((time|int) % 3600) // 60}} minutes
+          {% endif %}
+          {% if (time|int) % 60 != 0 %}
+            and {{(time|int) % 60}} seconds
+          {% endif %}<br>
+        <b>Playlist Length:</b> {{length}}<br><br>
       </div>
-      <table class="table table-hover table-dark">
+      <table class="table table-hover table-light"><br>
 	<thead>
 	  <tr>
 	    <th scope="col">#</th>
@@ -73,23 +92,20 @@
 	  {% endfor %}
 	</tbody>
       </table>
-      <div class="col-sm">
-        <button type="submit" class="btn btn-info float-right" name="listen" value="{listen}">Play</button>
-	<input type="hidden" value="{{ playlist }}" name="saved"></input>
-	<button type="submit" class="btn btn-info float-right" name="save" value="{save}">Save</button><br><br>
-      </div>
+      <!-- <div class="col-sm">
+	       <input type="hidden" value="{{ playlist }}" name="saved"></input>
+	        <button type="submit" class="btn btn-info float-right" name="save" value="{save}">Add to Library</button><br><br>
+      </div> -->
     </div><br>
 
-    <h5>Length of playlist<br>
-      Song count</h5><br>
+    <button type="submit"class="btn btn-primary btn-lg btn-block" name="save" value={{playlist}}>Save to Library</button><br><br>
+
 
     <!-- {% for song in playlist %} -->
     <!-- {% endfor %} -->
 
     <!-- put this in the loop of all the songs found  -->
 
-
-    {{playlist}}
     <!-- <div class="row">
          <div class="col-sm">
            "consequences"
@@ -120,8 +136,7 @@
          </div>
     </div><br><br> -->
 
-    <button type="submit" class="btn btn-primary btn-lg btn-block" name="shuffle" value="{shuffle}">Shuffle</button><br><br>
-
   </form>
+  </div></div></div>
 
   {% endblock content %}
